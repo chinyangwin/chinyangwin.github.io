@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张月 · 拾遗</title>
+    <style>
+        /* ========== 全局蓝调 ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Noto Serif SC", "PingFang SC", "微软雅黑", serif;
+            background: #eef2f6;
+            color: #2c3e50;
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 220px;
+            background: #1e3b5c;
+            color: #d6e2f0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: fixed;
+            top: 0; left: 0; bottom: 0;
+            z-index: 10;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .sidebar h2 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #3b5a82;
+            padding-bottom: 0.8rem;
+        }
+        .sidebar input[type="radio"] { display: none; }
+        .sidebar label {
+            display: block;
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            color: #c5d5ea;
+        }
+        .sidebar label:hover { background: #2c4a6e; color: white; }
+        input#nav-home:checked ~ .sidebar label[for="nav-home"],
+        input#nav-timeline:checked ~ .sidebar label[for="nav-timeline"],
+        input#nav-acting:checked ~ .sidebar label[for="nav-acting"],
+        input#nav-stage:checked ~ .sidebar label[for="nav-stage"],
+        input#nav-variety:checked ~ .sidebar label[for="nav-variety"],
+        input#nav-rare:checked ~ .sidebar label[for="nav-rare"],
+        input#nav-about:checked ~ .sidebar label[for="nav-about"],
+        input#nav-comments:checked ~ .sidebar label[for="nav-comments"] {
+            background: #2c5282;
+            color: white;
+            font-weight: 600;
+        }
+        .content {
+            margin-left: 220px;
+            flex: 1;
+            padding: 2rem 2.5rem;
+            max-width: 1200px;
+            width: 100%;
+            background: #fafcfe;
+            min-height: 100vh;
+        }
+        .panel { display: none; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #nav-home:checked ~ .content #home-panel,
+        #nav-timeline:checked ~ .content #timeline-panel,
+        #nav-acting:checked ~ .content #acting-panel,
+        #nav-stage:checked ~ .content #stage-panel,
+        #nav-variety:checked ~ .content #variety-panel,
+        #nav-rare:checked ~ .content #rare-panel,
+        #nav-about:checked ~ .content #about-panel,
+        #nav-comments:checked ~ .content #comments-panel { display: block; }
+        .panel h2 {
+            font-size: 1.8rem;
+            color: #2c5282;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #5b83b5;
+            padding-left: 1rem;
+        }
+        .card {
+            background: #f8fafe;
+            border: 1px solid #d4dfed;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(40,60,90,0.04);
+            transition: all 0.2s;
+        }
+        .card:hover {
+            border-color: #8ba5c4;
+            box-shadow: 0 4px 12px rgba(44,82,130,0.1);
+        }
+        .card img, .card iframe {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 0.8rem 0;
+            border: 1px solid #dbe4f0;
+        }
+        iframe { aspect-ratio: 16/9; height: auto; width: 100%; }
+
+        /* 视频容器加透明遮罩，防止点击直接触发原生控件 */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 4px;
+            margin: 0.8rem 0;
+            cursor: pointer;
+        }
+        .video-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: transparent;
+            z-index: 2;
+        }
+        .video-wrapper video,
+        .video-wrapper iframe {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #dbe4f0;
+            border-radius: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .acting-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .acting-item {
+            background: #f8fafe;
+            border: 1px solid #d4dfed;
+            border-radius: 6px;
+            padding: 0.4rem;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(40,60,90,0.03);
+            transition: all 0.2s;
+        }
+        .acting-item:hover {
+            border-color: #8ba5c4;
+            box-shadow: 0 3px 8px rgba(44,82,130,0.08);
+            transform: translateY(-1px);
+        }
+        .acting-title {
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #1e3b5c;
+            margin: 0 0 0.3rem 0;
+            text-align: center;
+        }
+        .acting-poster {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            overflow: hidden;
+            border-radius: 3px;
+            margin-bottom: 0.4rem;
+        }
+        .acting-poster img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .acting-item .acting-info {
+            margin-top: 0.4rem;
+            font-size: 0.7rem;
+            color: #5a6f8c;
+            line-height: 1.4;
+        }
+        .acting-item .acting-info .date { font-weight: 600; color: #2c5282; }
+        .acting-item .acting-info .role { color: #889bb3; }
+
+        .note {
+            margin-top: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: #eef3fa;
+            border-left: 4px solid #5b83b5;
+            color: #2c435c;
+            font-style: italic;
+            border-radius: 0 4px 4px 0;
+        }
+        blockquote {
+            margin: 0.8rem 0;
+            padding: 0.5rem 1rem;
+            background: #e7eff9;
+            border-left: 3px solid #8aa3c4;
+            color: #3c516b;
+            font-size: 0.9rem;
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #889bb3;
+            font-size: 0.85rem;
+            border-top: 1px solid #ceddea;
+            padding-top: 1.5rem;
+        }
+
+        .profile-card-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .profile-card {
+            background: #f8fafe;
+            border: 1px solid #d4dfed;
+            border-radius: 10px;
+            padding: 0.9rem 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(40,60,90,0.04);
+            transition: all 0.2s;
+        }
+        .profile-card:hover {
+            border-color: #8ba5c4;
+            box-shadow: 0 4px 12px rgba(44,82,130,0.1);
+            transform: translateY(-1px);
+        }
+        .profile-card-label {
+            display: block;
+            font-size: 0.75rem;
+            color: #889bb3;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+        .profile-card-value {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* 合集卡片（通用） */
+        .rare-details, .collection-card {
+            background: #f8fafe;
+            border: 1px solid #d4dfed;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(40,60,90,0.04);
+            transition: all 0.2s;
+        }
+        .rare-details:hover, .collection-card:hover {
+            border-color: #8ba5c4;
+            box-shadow: 0 4px 12px rgba(44,82,130,0.1);
+        }
+        .rare-details summary, .collection-card summary {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2c5282;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+        .rare-details summary::before { content: "📷"; font-size: 1rem; }
+        .collection-card summary::before { content: "📁"; font-size: 1.2rem; }
+        .rare-details summary::-webkit-details-marker,
+        .collection-card summary::-webkit-details-marker { display: none; }
+
+        .rare-details .rare-content,
+        .collection-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+        .rare-content .rare-photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.5rem;
+        }
+        .rare-content .rare-photos img {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #dbe4f0;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+
+        /* 图片灯箱 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 6px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        /* 视频灯箱 */
+        .lightbox-video {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-video.active { display: flex; }
+        .lightbox-video .video-inner {
+            width: 85%;
+            max-width: 1000px;
+            background: #000;
+            border-radius: 8px;
+            padding: 10px;
+            position: relative;
+        }
+        .lightbox-video iframe,
+        .lightbox-video video {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16/9;
+            border: none;
+            border-radius: 4px;
+        }
+        .close-video {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 10;
+            line-height: 1;
+        }
+
+        /* 合集内容两列网格（视频卡片） */
+        .collection-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .collection-content .card {
+            margin-bottom: 0;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .video-grid .video-wrapper { margin: 0; }
+
+        @media (max-width: 900px) { .acting-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 700px) {
+            body { flex-direction: column; }
+            .sidebar {
+                position: static; width: 100%; flex-direction: row; flex-wrap: wrap;
+                justify-content: center; gap: 0.3rem; padding: 1rem 0.5rem;
+            }
+            .sidebar h2 { width: 100%; text-align: center; margin-bottom: 0.5rem; border-bottom: none; }
+            .sidebar label { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+            .content { margin-left: 0; padding: 1.5rem 1rem; }
+        }
+        @media (max-width: 600px) {
+            .profile-card-grid { grid-template-columns: repeat(2, 1fr); }
+            .acting-grid { grid-template-columns: repeat(2, 1fr); }
+            .collection-content,
+            .video-grid { grid-template-columns: 1fr; }
+            .lightbox-video .video-inner { width: 95%; }
+        }
+
+        /* Cusdis 留言板微调 */
+        #comments-panel .card {
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <input type="radio" name="nav" id="nav-home" checked>
+    <input type="radio" name="nav" id="nav-timeline">
+    <input type="radio" name="nav" id="nav-acting">
+    <input type="radio" name="nav" id="nav-stage">
+    <input type="radio" name="nav" id="nav-variety">
+    <input type="radio" name="nav" id="nav-rare">
+    <input type="radio" name="nav" id="nav-about">
+    <input type="radio" name="nav" id="nav-comments">
+
+    <div class="sidebar">
+        <h2>🌙 张月 · 月来月好</h2>
+        <label for="nav-home">🏠 主页</label>
+        <label for="nav-timeline">📅 成长时间线</label>
+        <label for="nav-acting">🎭 影视作品</label>
+        <label for="nav-variety">🎬 综艺汇总</label>
+        <label for="nav-stage">🎤 舞台考古</label>
+        <label for="nav-rare">📦 冷门物料</label>
+        <label for="nav-about">💌 关于她·冷知识</label>
+        <label for="nav-comments">💬 粉丝留言</label>
+    </div>
+
+    <div class="content">
+        <!-- 主页 -->
+        <div class="panel" id="home-panel">
+            <div style="text-align:center; margin-bottom:2rem;">
+                <img src="images/IMG_6087.jpg" alt="张月头像" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid #2c5282; padding:4px; background:white; box-shadow:0 4px 12px rgba(28,52,82,0.15);">
+                <h1 style="font-size:2rem; color:#1e3b5c; margin-top:0.8rem; letter-spacing:2px; border:none; padding:0;">张 月</h1>
+            </div>
+            <div class="profile-card-grid">
+                <div class="profile-card"><span class="profile-card-label">姓名</span><span class="profile-card-value">张月</span></div>
+                <div class="profile-card"><span class="profile-card-label">生日</span><span class="profile-card-value">1994.9.14</span></div>
+                <div class="profile-card"><span class="profile-card-label">出生地</span><span class="profile-card-value">河南郑州</span></div>
+                <div class="profile-card"><span class="profile-card-label">星座</span><span class="profile-card-value">处女座</span></div>
+                <div class="profile-card"><span class="profile-card-label">MBTI</span><span class="profile-card-value">INFJ</span></div>
+                <div class="profile-card"><span class="profile-card-label">职业</span><span class="profile-card-value">演员</span></div>
+                <div class="profile-card"><span class="profile-card-label">应援色</span><span class="profile-card-value">(待补充)</span></div>
+                <div class="profile-card"><span class="profile-card-label">粉丝名</span><span class="profile-card-value">肉松（曾用名：月牙儿）</span></div>
+            </div>
+            <p style="margin-top:2rem; color:#5a6f8c; text-align:center;">👈</p>
+            <footer>非官方粉丝整理站 · 图片视频版权归原作者所有</footer>
+        </div>
+
+        <!-- 成长时间线 -->
+        <div class="panel" id="timeline-panel">
+            <h2>成长时间线</h2>
+            <div class="card"><h3>1994.9.14出生于河南郑州</h3><img src="images/IMG_6077.jpg" alt=""><div class="note">小小的你也没有想到以后会成为闪闪发光的大明星吧</div></div>
+            <div class="card"><h3>2007-2013考上北舞附中，自己一个人去北京上学住宿，读歌舞教学科</h3><img src="images/IMG_6056.JPG" alt=""><div class="note">12岁，独自北上，去够一个遥远的舞蹈梦。</div></div>
+            <div class="card"><h3>2009参加阅兵仪式，还想当飞行员</h3><img src="images/IMG_6059.JPG" alt=""><div class="note">从小就根正苗红</div></div>
+            <div class="card"><h3>高中韧带断裂</h3><img src="images/IMG_6057.JPG" alt=""><div class="note">连心疼你都有时差</div></div>
+            <div class="card"><h3>2013-2017北舞音乐剧专业，大一开始在附中教书三年</h3><img src="images/IMG_6060.jpg" alt=""><div class="note">小张老师你真的好棒</div></div>
+            <div class="card"><h3>大四下半学期实习不想循规蹈矩去银行上了两周班,偶然间看了《穿普拉达的女王》而尝试去了天生是优我选秀</h3><img src="images/IMG_6061.jpg" alt=""><div class="note">一次"叛逆"换来了我们能看到你的机会</div></div>
+            <div class="card"><h3>2017.6.25从天生是优我正式出道</h3><img src="images/IMG_6069.jpg" alt=""><div class="note">艺人张月正式起航</div></div>
+        </div>
+
+        <!-- 影视作品 -->
+        <div class="panel" id="acting-panel">
+            <h2>影视作品</h2>
+            <div class="acting-grid">
+                <!-- 省略作品卡片以节省空间，保持和之前完全一致 -->
+                <div class="acting-item"><p class="acting-title">《御天神帝》</p><div class="acting-poster"><img src="images/IMG_6091.jpg" alt="御天神帝"></div><p class="acting-info"><span class="date">2018.6.1</span><br><span class="role">鱼小杏</span></p></div>
+                <div class="acting-item"><p class="acting-title">《那年1987》</p><div class="acting-poster"><img src="images/nanian1987.PNG" alt="那年1987"></div><p class="acting-info"><span class="date">2018.8.30</span><br><span class="role">刘芳</span></p></div>
+                <div class="acting-item"><p class="acting-title">《唐小小的魔法天台》</p><div class="acting-poster"><img src="images/IMG_6099.jpg" alt="唐小小的魔法天台"></div><p class="acting-info"><span class="date">2019.3.19</span><br><span class="role">唐小小</span></p></div>
+                <div class="acting-item"><p class="acting-title">《三十而已》</p><div class="acting-poster"><img src="images/sanshieryi.jpg" alt="三十而已"></div><p class="acting-info"><span class="date">2020.7.17</span><br><span class="role">林有有</span></p></div>
+                <div class="acting-item"><p class="acting-title">《大梦聊斋》</p><div class="acting-poster"><img src="images/IMG_6134.jpg" alt="大梦聊斋"></div><p class="acting-info"><span class="date">2020.8.15</span><br><span class="role">婴宁</span></p></div>
+                <div class="acting-item"><p class="acting-title">《谎言侦探》</p><div class="acting-poster"><img src="images/huangyanzhentan.jpg" alt="谎言侦探"></div><p class="acting-info"><span class="date">2021.6.21</span><br><span class="role">江雅丽</span></p></div>
+                <div class="acting-item"><p class="acting-title">《千古玦尘》</p><div class="acting-poster"><img src="images/IMG_6124.jpg" alt="千古玦尘"></div><p class="acting-info"><span class="date">2021.6.27</span><br><span class="role">雨神</span></p></div>
+                <div class="acting-item"><p class="acting-title">《国子监来了个女弟子》</p><div class="acting-poster"><img src="images/IMG_6110.jpg" alt="国子监来了个女弟子"></div><p class="acting-info"><span class="date">2021.9.22</span><br><span class="role">宋佳音</span></p></div>
+                <div class="acting-item"><p class="acting-title">《对手》</p><div class="acting-poster"><img src="images/duishou.jpg" alt="对手"></div><p class="acting-info"><span class="date">2021.12.16</span><br><span class="role">许惠婷</span></p></div>
+                <div class="acting-item"><p class="acting-title">《祝卿好》</p><div class="acting-poster"><img src="images/IMG_6109.jpg" alt="祝卿好"></div><p class="acting-info"><span class="date">2022.4.16</span><br><span class="role">徐时锦</span></p></div>
+                <div class="acting-item"><p class="acting-title">《星汉灿烂·月升沧海》</p><div class="acting-poster"><img src="images/IMG_6108.jpg" alt="星汉灿烂·月升沧海"></div><p class="acting-info"><span class="date">2022.7.5</span><br><span class="role">万萋萋</span></p></div>
+                <div class="acting-item"><p class="acting-title">《我的人间烟火》</p><div class="acting-poster"><img src="images/renjianyanhuo.jpg" alt="我的人间烟火"></div><p class="acting-info"><span class="date">2023.7.5</span><br><span class="role">李萌</span></p></div>
+                <div class="acting-item"><p class="acting-title">《父辈的荣耀》</p><div class="acting-poster"><img src="images/fubeiderongyao.jpg" alt="父辈的荣耀"></div><p class="acting-info"><span class="date">2023.8.27</span><br><span class="role">林晓晴</span></p></div>
+                <div class="acting-item"><p class="acting-title">《宿命之敌》</p><div class="acting-poster"><img src="images/sumingzhidi.jpg" alt="宿命之敌"></div><p class="acting-info"><span class="date">2023.9.16</span><br><span class="role">骆冰</span></p></div>
+                <div class="acting-item"><p class="acting-title">《玫瑰的故事》</p><div class="acting-poster"><img src="images/meiguidegushi.jpg" alt="玫瑰的故事"></div><p class="acting-info"><span class="date">2024.6.8</span><br><span class="role">韩鹦</span></p></div>
+                <div class="acting-item"><p class="acting-title">《山花烂漫时》</p><div class="acting-poster"><img src="images/shanhualanmanshi.jpg" alt="山花烂漫时"></div><p class="acting-info"><span class="date">2024.9.10</span><br><span class="role">丁笑笑</span></p></div>
+                <div class="acting-item"><p class="acting-title">《幻乐森林》</p><div class="acting-poster"><img src="images/IMG_6107.jpg" alt="幻乐森林"></div><p class="acting-info"><span class="date">2024.9.22</span><br><span class="role">苏若珊</span></p></div>
+                <div class="acting-item"><p class="acting-title">《淬火年代》</p><div class="acting-poster"><img src="images/cuihuoniandai.jpg" alt="淬火年代"></div><p class="acting-info"><span class="date">2025.6.18</span><br><span class="role">林川</span></p></div>
+                <div class="acting-item"><p class="acting-title">《好好的时光》</p><div class="acting-poster"><img src="images/haohaodeshiguang.jpg" alt="好好的时光"></div><p class="acting-info"><span class="date">2026.2.23</span><br><span class="role">王元媛</span></p></div>
+                <div class="acting-item"><p class="acting-title">《莫离》</p><div class="acting-poster"><img src="images/IMG_6104.jpg" alt="莫离"></div><p class="acting-info"><span class="date">2026.6.9</span><br><span class="role">秦筝</span></p></div>
+                <div class="acting-item"><p class="acting-title">《种墨园》</p><div class="acting-poster"><img src="images/zhongmoyuan.jpg" alt="种墨园"></div><p class="acting-info"><span class="date">2026.6.23</span><br><span class="role">林依然</span></p></div>
+                <div class="acting-item"><p class="acting-title">《倾城亦清欢》</p><div class="acting-poster"><img src="images/IMG_6106.jpg" alt="倾城亦清欢"></div><p class="acting-info"><span class="date">待播</span><br><span class="role">凤清音</span></p></div>
+                <div class="acting-item"><p class="acting-title">《云端守边人》</p><div class="acting-poster"><img src="images/yunduanshoubianren.jpg" alt="云端守边人"></div><p class="acting-info"><span class="date">待播</span><br><span class="role">唐棠</span></p></div>
+                <div class="acting-item"><p class="acting-title">《尚公主》</p><div class="acting-poster"><img src="images/IMG_6105.jpg" alt="尚公主"></div><p class="acting-info"><span class="date">待播</span><br><span class="role">梁令仪</span></p></div>
+            </div>
+        </div>
+
+        <!-- 舞台考古（全部收纳进合集） -->
+        <div class="panel" id="stage-panel">
+            <h2>舞台考古</h2>
+
+            <details class="collection-card">
+                <summary>浪姐舞台合集</summary>
+                <div class="collection-content">
+                    <div class="card"><h3>乘风2026主题曲MV</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116588061662513&bvid=BV1jELJ6dE9Q&cid=38394462778&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>初舞台《Interstellar》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116419333193883&bvid=BV1mUdBBbEWv&cid=37579523118&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>一公《霍元甲》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116428996870802&bvid=BV1zad9BxEX3&cid=37627432295&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>二公《孤单北半球》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116465520937964&bvid=BV1FVoQBREX7&cid=37820892140&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>二公跨团合作秀《言不由衷》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116470772334661&bvid=BV1SgZFBfE95&cid=37849401343&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>三公《凑热闹》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116619267282821&bvid=BV1i6Ga6EEt9&cid=38537134644&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>三公合作秀《另一个天堂》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116630239583224&bvid=BV1eWGH6JEQi&cid=38585696693&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>三公X秀《野心家》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116633846745680&bvid=BV1yUGx6UESo&cid=38597887154&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>训练室《锁》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116850541266595&bvid=BV1wfT76GEhn&cid=39594690718&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>四公跨团合作秀《泪桥》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116707498657529&bvid=BV1asE461ERq&cid=38927729263&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>四公队内合作秀《怪我更爱我自己》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116746405156899&bvid=BV1e1JF63E3h&cid=39104155176&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>五公《CAMERA READY》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116777057063257&bvid=BV1iUj66SErd&cid=39245447329&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>五公队内合作秀《猜不透》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116782761248943&bvid=BV1FCjH63Emj&cid=39268911360&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>总决赛《Hey Girl》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116822221261084&bvid=BV1bz7s6eEC3&cid=39456671566&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>总决赛《想见你想见你想见你》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116822456142675&bvid=BV1k37s6XE2C&cid=39458443046&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>总决赛《那些花儿》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116832069490122&bvid=BV1w8KS6tEGu&cid=39500451426&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                </div>
+            </details>
+
+            <details class="collection-card">
+                <summary>其他舞台合集</summary>
+                <div class="collection-content">
+                    <div class="card">
+                        <h3>2018.2.10 《发财发福中国年》春晚</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116873777649622&bvid=BV1DQTd68Eo3&cid=39711146207&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 综艺汇总（全部收纳进合集） -->
+        <div class="panel" id="variety-panel">
+            <h2>综艺汇总</h2>
+
+            <details class="collection-card">
+                <summary>天生是优我 · 舞台合集</summary>
+                <div class="collection-content">
+                    <div class="card">
+                        <h3>2017.3.10 · 《天生是优我》舞台合集</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116478758160220&bvid=BV1AcomB7Ekx&cid=37893899330&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="collection-card">
+                <summary>跨界歌王第五季舞台合集</summary>
+                <div class="collection-content">
+                    <div class="card">
+                        <h3>2020.8.15 · 《ARE YOU READY》</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=371683293&bvid=BV1hZ4y1M7zE&cid=224819637&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>2020.8.30 · 《蝴蝶泉边》</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=626984425&bvid=BV1yt4y1S7B9&cid=230266762&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </details>
+            <details class="collection-card">
+                <summary>演员请就位2表演合集</summary>
+                <div class="collection-content">
+                    <div class="card">
+                        <h3>2018《今天你要嫁给我》</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=330456523&bvid=BV1SA411x7Rd&cid=260825170&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>2018《女人+》</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=457990193&bvid=BV1o541137mC&cid=260725582&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>2018《小时代》</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116874314520108&bvid=BV15ATd6PER2&cid=39713177988&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>2018《肿瘤君》</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116874348205623&bvid=BV19KTd6wE4M&cid=39713179782&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>2018《终极盛典》</h3>
+                        <div class="video-wrapper">
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=203111332&bvid=BV1Ma411c7tk&cid=263284059&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </details>
+            <details class="collection-card">
+                <summary>综艺文字记录</summary>
+                <div class="collection-content">
+                    <div class="card"><h3>2018.2 · 《异口同声》</h3><p>随团参加录制</p></div>
+                    <div class="card"><h3>2018.11 · 《超新星运动会》</h3><p>随团参加录制</p></div>
+                    <div class="card"><h3>2020.11.18 · 《角色出走计划》</h3><p>奶茶小妹上线</p></div>
+                    <div class="card"><h3>2023.10 · 星辰大海演员计划</h3><p>入选2023星辰大海演员计划名单</p></div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 冷门物料（已全部合集） -->
+        <div class="panel" id="rare-panel">
+            <h2>冷门物料</h2>
+            <details class="rare-details">
+                <summary>优我团的姐姐们为月月加油</summary>
+                <div class="rare-content">
+                    <div class="rare-photos">
+                        <img src="images/IMG_6063.png" alt="微博截图1">
+                        <img src="images/IMG_6064.png" alt="微博截图2">
+                        <img src="images/IMG_6065.png" alt="微博截图3">
+                        <img src="images/IMG_6066.png" alt="微博截图4">
+                        <img src="images/IMG_6067.png" alt="微博截图5">
+                        <img src="images/IMG_6068.png" alt="微博截图6">
+                    </div>
+                </div>
+            </details>
+
+            <details class="rare-details">
+                <summary>张月的cover合集</summary>
+                <div class="rare-content">
+                    <div class="video-grid">
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38244517941&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38244581450&p=2&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38007017018&p=3&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006425182&p=4&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38007277682&p=5&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006950760&p=6&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38255593201&p=7&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905500083&p=8&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905370064&p=9&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905433558&p=10&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905434290&p=11&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905435578&p=12&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006883613&p=13&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006817710&p=14&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905498388&p=15&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905633087&p=16&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006558523&p=17&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 关于她·冷知识 -->
+        <div class="panel" id="about-panel">
+            <h2>关于她 · 冷知识</h2>
+            <div class="card">
+                <ol style="padding-left: 1.5rem; line-height: 2;">
+                    <li>很容易害羞泛红</li>
+                    <li>接受不了折耳根</li>
+                    <li>出门前会看幸运色</li>
+                    <li>来回关注取消吃播博主</li>
+                    <li>问哪里不舒服，她回答心里</li>
+                    <li>开卡丁车被别人撞进草丛了</li>
+                    <li>喜欢看动画片，喜欢蜡笔小新</li>
+                    <li>因为不敢吃虫子炸串所以亲了串一下</li>
+                    <li>粉丝名肉松的来历是因为小时候肉太松了</li>
+                    <li>吃米饭放醋，吃鸡蛋也放醋，超级爱吃醋</li>
+                    <li>爱看财经频道里的美食节目，还爱逛菜市场</li>
+                    <li>有个小10岁半的妹妹和她长得很像，也在北舞读书</li> 
+                    <li>因为太爱吃妈妈怕长胖就把她送去学跳舞了，结果跳完舞更能吃了</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 粉丝留言 -->
+        <div class="panel" id="comments-panel">
+            <h2>粉丝留言</h2>
+            <div class="card">
+                <div id="cusdis_thread"
+                     data-host="https://cusdis.com"
+                     data-app-id="463f492e-b3f9-4c41-ba8c-4987a42c2a70"
+                     data-page-id="comments"
+                     data-page-title="粉丝留言"
+                ></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 图片灯箱（保持不变）
+        document.querySelectorAll('img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const lightbox = document.createElement('div');
+                lightbox.className = 'lightbox active';
+                const bigImg = document.createElement('img');
+                bigImg.src = this.src;
+                lightbox.appendChild(bigImg);
+                document.body.appendChild(lightbox);
+                lightbox.addEventListener('click', function() {
+                    lightbox.remove();
+                });
+            });
+        });
+
+        // 视频灯箱
+        document.querySelectorAll('.video-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('click', function(e) {
+                e.preventDefault();
+                const iframe = this.querySelector('iframe');
+                const video = this.querySelector('video');
+                const src = iframe ? iframe.src : (video ? video.querySelector('source')?.src || video.src : null);
+                if (!src) return;
+
+                // 创建灯箱
+                const lightbox = document.createElement('div');
+                lightbox.className = 'lightbox-video active';
+                const inner = document.createElement('div');
+                inner.className = 'video-inner';
+
+                // 关闭按钮
+                const closeBtn = document.createElement('div');
+                closeBtn.className = 'close-video';
+                closeBtn.innerHTML = '✕';
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    lightbox.remove();
+                });
+
+                // 创建播放器
+                let player;
+                if (iframe) {
+                    player = document.createElement('iframe');
+                    player.src = src;
+                    player.setAttribute('scrolling', 'no');
+                    player.setAttribute('border', '0');
+                    player.setAttribute('frameborder', 'no');
+                    player.setAttribute('framespacing', '0');
+                    player.setAttribute('allowfullscreen', 'true');
+                } else {
+                    player = document.createElement('video');
+                    player.src = src;
+                    player.controls = true;
+                    player.autoplay = true;
+                }
+                inner.appendChild(player);
+                inner.appendChild(closeBtn);
+                lightbox.appendChild(inner);
+                document.body.appendChild(lightbox);
+
+                // 点击背景关闭
+                lightbox.addEventListener('click', function(e) {
+                    if (e.target === lightbox) {
+                        lightbox.remove();
+                    }
+                });
+            });
+        });
+
+        // Cusdis 延迟加载：第一次切换到留言面板时再加载
+        (function() {
+            let cusdisLoaded = false;
+            const commentsRadio = document.getElementById('nav-comments');
+            if (!commentsRadio) return;
+
+            function loadCusdis() {
+                if (cusdisLoaded) return;
+                cusdisLoaded = true;
+
+                // 动态设置 page-url 为当前完整网址
+                const thread = document.getElementById('cusdis_thread');
+                if (thread) {
+                    thread.setAttribute('data-page-url', window.location.href);
+                }
+
+                // 加载 Cusdis 官方脚本
+                const script = document.createElement('script');
+                script.src = 'https://cusdis.com/js/cusdis.es.js';
+                script.async = true;
+                script.defer = true;
+                document.body.appendChild(script);
+            }
+
+            // 监听点击事件：点击留言菜单时加载
+            const label = document.querySelector('label[for="nav-comments"]');
+            if (label) {
+                label.addEventListener('click', loadCusdis);
+            }
+
+            // 如果页面初始就是留言面板（不会发生，但作为兜底）
+            if (commentsRadio.checked) {
+                loadCusdis();
+            }
+        })();
+    </script>
+</body>
+</html>
