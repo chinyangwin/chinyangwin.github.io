@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>张月 · 拾遗</title>
+    <title>张月 · 九年望月 十年月圆</title>
     <style>
         /* ========== 全局蓝调 ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,6 +54,7 @@
         input#nav-acting:checked ~ .sidebar label[for="nav-acting"],
         input#nav-stage:checked ~ .sidebar label[for="nav-stage"],
         input#nav-variety:checked ~ .sidebar label[for="nav-variety"],
+        input#nav-interview:checked ~ .sidebar label[for="nav-interview"],
         input#nav-rare:checked ~ .sidebar label[for="nav-rare"],
         input#nav-about:checked ~ .sidebar label[for="nav-about"],
         input#nav-comments:checked ~ .sidebar label[for="nav-comments"] {
@@ -77,6 +78,7 @@
         #nav-acting:checked ~ .content #acting-panel,
         #nav-stage:checked ~ .content #stage-panel,
         #nav-variety:checked ~ .content #variety-panel,
+        #nav-interview:checked ~ .content #interview-panel,
         #nav-rare:checked ~ .content #rare-panel,
         #nav-about:checked ~ .content #about-panel,
         #nav-comments:checked ~ .content #comments-panel { display: block; }
@@ -414,6 +416,7 @@
     <input type="radio" name="nav" id="nav-acting">
     <input type="radio" name="nav" id="nav-stage">
     <input type="radio" name="nav" id="nav-variety">
+    <input type="radio" name="nav" id="nav-interview">
     <input type="radio" name="nav" id="nav-rare">
     <input type="radio" name="nav" id="nav-about">
     <input type="radio" name="nav" id="nav-comments">
@@ -424,8 +427,9 @@
         <label for="nav-timeline">📅 成长时间线</label>
         <label for="nav-acting">🎭 影视作品</label>
         <label for="nav-variety">🎬 综艺汇总</label>
+        <label for="nav-interview">🎙️ 访谈记录</label>
         <label for="nav-stage">🎤 舞台考古</label>
-        <label for="nav-rare">📦 冷门物料</label>
+        <label for="nav-rare">🧩物料碎片</label>
         <label for="nav-about">💌 关于她·冷知识</label>
         <label for="nav-comments">💬 粉丝留言</label>
     </div>
@@ -447,7 +451,7 @@
                 <div class="profile-card"><span class="profile-card-label">应援色</span><span class="profile-card-value">(待补充)</span></div>
                 <div class="profile-card"><span class="profile-card-label">粉丝名</span><span class="profile-card-value">肉松（曾用名：月牙儿）</span></div>
             </div>
-            <p style="margin-top:2rem; color:#5a6f8c; text-align:center;">👈</p>
+            <p style="margin-top:2rem; color:#5a6f8c; text-align:center;">不被世俗定义模样，每份女性力量都有独特光芒</p>
             <footer>非官方粉丝整理站 · 图片视频版权归原作者所有</footer>
         </div>
 
@@ -460,14 +464,13 @@
             <div class="card"><h3>高中韧带断裂</h3><img src="images/IMG_6057.JPG" alt=""><div class="note">连心疼你都有时差</div></div>
             <div class="card"><h3>2013-2017北舞音乐剧专业，大一开始在附中教书三年</h3><img src="images/IMG_6060.jpg" alt=""><div class="note">小张老师你真的好棒</div></div>
             <div class="card"><h3>大四下半学期实习不想循规蹈矩去银行上了两周班,偶然间看了《穿普拉达的女王》而尝试去了天生是优我选秀</h3><img src="images/IMG_6061.jpg" alt=""><div class="note">一次"叛逆"换来了我们能看到你的机会</div></div>
-            <div class="card"><h3>2017.6.25从天生是优我正式出道</h3><img src="images/IMG_6069.jpg" alt=""><div class="note">艺人张月正式起航</div></div>
+            <div class="card"><h3>2017.6.24从天生是优我正式出道</h3><img src="images/IMG_6069.jpg" alt=""><div class="note">艺人张月正式起航</div></div>
         </div>
 
         <!-- 影视作品 -->
         <div class="panel" id="acting-panel">
             <h2>影视作品</h2>
             <div class="acting-grid">
-                <!-- 省略作品卡片以节省空间，保持和之前完全一致 -->
                 <div class="acting-item"><p class="acting-title">《御天神帝》</p><div class="acting-poster"><img src="images/IMG_6091.jpg" alt="御天神帝"></div><p class="acting-info"><span class="date">2018.6.1</span><br><span class="role">鱼小杏</span></p></div>
                 <div class="acting-item"><p class="acting-title">《那年1987》</p><div class="acting-poster"><img src="images/nanian1987.PNG" alt="那年1987"></div><p class="acting-info"><span class="date">2018.8.30</span><br><span class="role">刘芳</span></p></div>
                 <div class="acting-item"><p class="acting-title">《唐小小的魔法天台》</p><div class="acting-poster"><img src="images/IMG_6099.jpg" alt="唐小小的魔法天台"></div><p class="acting-info"><span class="date">2019.3.19</span><br><span class="role">唐小小</span></p></div>
@@ -502,22 +505,22 @@
             <details class="collection-card">
                 <summary>浪姐舞台合集</summary>
                 <div class="collection-content">
-                    <div class="card"><h3>乘风2026主题曲MV</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116588061662513&bvid=BV1jELJ6dE9Q&cid=38394462778&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>初舞台《Interstellar》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116419333193883&bvid=BV1mUdBBbEWv&cid=37579523118&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>一公《霍元甲》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116428996870802&bvid=BV1zad9BxEX3&cid=37627432295&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>二公《孤单北半球》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116465520937964&bvid=BV1FVoQBREX7&cid=37820892140&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>二公跨团合作秀《言不由衷》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116470772334661&bvid=BV1SgZFBfE95&cid=37849401343&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>三公《凑热闹》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116619267282821&bvid=BV1i6Ga6EEt9&cid=38537134644&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>三公合作秀《另一个天堂》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116630239583224&bvid=BV1eWGH6JEQi&cid=38585696693&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>三公X秀《野心家》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116633846745680&bvid=BV1yUGx6UESo&cid=38597887154&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>训练室《锁》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116850541266595&bvid=BV1wfT76GEhn&cid=39594690718&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>四公跨团合作秀《泪桥》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116707498657529&bvid=BV1asE461ERq&cid=38927729263&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>四公队内合作秀《怪我更爱我自己》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116746405156899&bvid=BV1e1JF63E3h&cid=39104155176&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>五公《CAMERA READY》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116777057063257&bvid=BV1iUj66SErd&cid=39245447329&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>五公队内合作秀《猜不透》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116782761248943&bvid=BV1FCjH63Emj&cid=39268911360&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>总决赛《Hey Girl》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116822221261084&bvid=BV1bz7s6eEC3&cid=39456671566&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>总决赛《想见你想见你想见你》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116822456142675&bvid=BV1k37s6XE2C&cid=39458443046&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
-                    <div class="card"><h3>总决赛《那些花儿》</h3><div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116832069490122&bvid=BV1w8KS6tEGu&cid=39500451426&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>乘风2026主题曲MV</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116588061662513&bvid=BV1jELJ6dE9Q&cid=38394462778&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>初舞台《Interstellar》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116419333193883&bvid=BV1mUdBBbEWv&cid=37579523118&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>一公《霍元甲》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116428996870802&bvid=BV1zad9BxEX3&cid=37627432295&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>二公《孤单北半球》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116465520937964&bvid=BV1FVoQBREX7&cid=37820892140&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>二公跨团合作秀《言不由衷》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116470772334661&bvid=BV1SgZFBfE95&cid=37849401343&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>三公《凑热闹》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116619267282821&bvid=BV1i6Ga6EEt9&cid=38537134644&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>三公合作秀《另一个天堂》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116630239583224&bvid=BV1eWGH6JEQi&cid=38585696693&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>三公X秀《野心家》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116633846745680&bvid=BV1yUGx6UESo&cid=38597887154&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>训练室《锁》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116850541266595&bvid=BV1wfT76GEhn&cid=39594690718&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>四公跨团合作秀《泪桥》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116707498657529&bvid=BV1asE461ERq&cid=38927729263&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>四公队内合作秀《怪我更爱我自己》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116746405156899&bvid=BV1e1JF63E3h&cid=39104155176&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>五公《CAMERA READY》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116777057063257&bvid=BV1iUj66SErd&cid=39245447329&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>五公队内合作秀《猜不透》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116782761248943&bvid=BV1FCjH63Emj&cid=39268911360&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>总决赛《Hey Girl》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116822221261084&bvid=BV1bz7s6eEC3&cid=39456671566&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>总决赛《想见你想见你想见你》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116822456142675&bvid=BV1k37s6XE2C&cid=39458443046&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>总决赛《那些花儿》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116832069490122&bvid=BV1w8KS6tEGu&cid=39500451426&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
 
@@ -525,9 +528,15 @@
                 <summary>其他舞台合集</summary>
                 <div class="collection-content">
                     <div class="card">
+                        <h3>2013级音乐剧系毕业视频《记得回家》</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116652150818679&bvid=BV1hEVH6mEcg&cid=38676792109&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
                         <h3>2018.2.10 《发财发福中国年》春晚</h3>
                         <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116873777649622&bvid=BV1DQTd68Eo3&cid=39711146207&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116873777649622&bvid=BV1DQTd68Eo3&cid=39711146207&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
                         </div>
                     </div>
                 </div>
@@ -544,25 +553,48 @@
                     <div class="card">
                         <h3>2017.3.10 · 《天生是优我》舞台合集</h3>
                         <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116478758160220&bvid=BV1AcomB7Ekx&cid=37893899330&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116478758160220&bvid=BV1AcomB7Ekx&cid=37893899330&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
                         </div>
                     </div>
                 </div>
             </details>
-
+            <details class="rare-details">
+                <summary>张月的cover合集</summary>
+                <div class="rare-content">
+                    <div class="video-grid">
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38244517941&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38244581450&p=2&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38007017018&p=3&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006425182&p=4&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38007277682&p=5&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006950760&p=6&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38255593201&p=7&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905500083&p=8&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905370064&p=9&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905433558&p=10&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905434290&p=11&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905435578&p=12&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006883613&p=13&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006817710&p=14&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905498388&p=15&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905633087&p=16&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006558523&p=17&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                    </div>
+                </div>
+            </details>
             <details class="collection-card">
                 <summary>跨界歌王第五季舞台合集</summary>
                 <div class="collection-content">
                     <div class="card">
                         <h3>2020.8.15 · 《ARE YOU READY》</h3>
                         <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=371683293&bvid=BV1hZ4y1M7zE&cid=224819637&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=371683293&bvid=BV1hZ4y1M7zE&cid=224819637&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
                         </div>
                     </div>
                     <div class="card">
                         <h3>2020.8.30 · 《蝴蝶泉边》</h3>
                         <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=626984425&bvid=BV1yt4y1S7B9&cid=230266762&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=626984425&bvid=BV1yt4y1S7B9&cid=230266762&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
                         </div>
                     </div>
                 </div>
@@ -570,36 +602,17 @@
             <details class="collection-card">
                 <summary>演员请就位2表演合集</summary>
                 <div class="collection-content">
-                    <div class="card">
-                        <h3>2018《今天你要嫁给我》</h3>
-                        <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=330456523&bvid=BV1SA411x7Rd&cid=260825170&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>2018《女人+》</h3>
-                        <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=457990193&bvid=BV1o541137mC&cid=260725582&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>2018《小时代》</h3>
-                        <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116874314520108&bvid=BV15ATd6PER2&cid=39713177988&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>2018《肿瘤君》</h3>
-                        <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116874348205623&bvid=BV19KTd6wE4M&cid=39713179782&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>2018《终极盛典》</h3>
-                        <div class="video-wrapper">
-                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=203111332&bvid=BV1Ma411c7tk&cid=263284059&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
+                    <div class="card"><h3>2018《今天你要嫁给我》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=330456523&bvid=BV1SA411x7Rd&cid=260825170&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>2018《女人+》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=457990193&bvid=BV1o541137mC&cid=260725582&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>2018《小时代》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116874314520108&bvid=BV15ATd6PER2&cid=39713177988&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>2018《肿瘤君》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116874348205623&bvid=BV19KTd6wE4M&cid=39713179782&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>2018《终极盛典》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=203111332&bvid=BV1Ma411c7tk&cid=263284059&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                </div>
+            </details>
+            <details class="collection-card">
+                <summary>星辰大海合集</summary>
+                <div class="collection-content">
+                    <div class="card"><h3>2023.10 · 星辰大海演员计划</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=535758685&bvid=BV17M411D76q&cid=1328742460&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
             <details class="collection-card">
@@ -613,9 +626,134 @@
             </details>
         </div>
 
-        <!-- 冷门物料（已全部合集） -->
+        <!-- 访谈记录（合集形式） -->
+        <div class="panel" id="interview-panel">
+            <h2>访谈记录</h2>
+
+            <details class="collection-card">
+                <summary>好好的时光 · 庄家姐弟采访合集</summary>
+                <div class="collection-content">
+                    <div class="card">
+                        <h3>【好好的时光】庄家姐弟采访 （上）</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116265687713123&bvid=BV1GywfzVEqM&cid=36857383742&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>【好好的时光】庄家姐弟采访（中）</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116271374993486&bvid=BV1pKA3zfEwe&cid=36882615021&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>【好好的时光】庄家姐弟采访（下）</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116276861079207&bvid=BV1wvQdBtEDw&cid=36905943458&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>《好好的时光》采访</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877485414386&bvid=BV1uGMt67E4f&cid=39726485454&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="collection-card">
+                <summary>演员请就位 · 采访合集</summary>
+                <div class="collection-content">
+                    <div class="card">
+                        <h3>影视biggerone《演员请就位》</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877653187188&bvid=BV1sBM466ERB&cid=39727138820&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>《演员请就位》采访1</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877653448415&bvid=BV1NBM46zE5q&cid=39726680930&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>《演员请就位》采访2</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877502191482&bvid=BV1TjMt6yEnN&cid=39726744832&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="collection-card">
+                <summary>其他访谈合集</summary>
+                <div class="collection-content">
+                    <div class="card">
+                        <h3>优我时期问答</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116551067900797&bvid=BV1Et5J6dEiS&cid=38243338532&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>请多指教罐头君：张月坦言林有有让我拥有更多机会</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=800254422&bvid=BV1gy4y1z7mf&cid=257852660&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>张月 FUN了个星专访</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=806046184&bvid=BV1L34y1S7sW&cid=424459900&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>凤凰网-《三十而已》</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877552524732&bvid=BV13KMt6HEva&cid=39726615002&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>中英商务论坛采访</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877485412619&bvid=BV1uGMt67Ezr&cid=39726548973&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>专访2023星辰大海计划</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=833785898&bvid=BV1h34y1w7QN&cid=1341779506&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>双人采访 张月×陈瑶</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116453307059081&bvid=BV174oYBAELS&cid=37749788280&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>《给我5分钟的时间》x张月</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116594252517718&bvid=BV1ZPLF6eEP8&cid=38419632070&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>《南方人物周刊》专访张月</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116845709431073&bvid=BV1uxTz65E4E&cid=39571098952&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>《TA自成风》张月✖️蓝盈莹</h3>
+                        <div class="video-wrapper">
+                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116837505303586&bvid=BV19fKZ6zEai&cid=39526073486&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 物料碎片（已全部合集） -->
         <div class="panel" id="rare-panel">
-            <h2>冷门物料</h2>
+            <h2>🧩物料碎片</h2>
             <details class="rare-details">
                 <summary>优我团的姐姐们为月月加油</summary>
                 <div class="rare-content">
@@ -629,28 +767,67 @@
                     </div>
                 </div>
             </details>
-
             <details class="rare-details">
-                <summary>张月的cover合集</summary>
+                <summary>22年超话空降</summary>
+                <div class="rare-content">
+                    <div class="rare-photos">
+                        <img src="images/IMG_6160.JPG" alt="微博截图1">
+                        <img src="images/IMG_6161.JPG" alt="微博截图2">
+                        <img src="images/IMG_6162.JPG" alt="微博截图3">
+                        <img src="images/IMG_6163.JPG" alt="微博截图4">
+                        <img src="images/IMG_6164.JPG" alt="微博截图5">
+                        <img src="images/IMG_6165.JPG" alt="微博截图6">
+                        <img src="images/IMG_6166.JPG" alt="微博截图7">
+                        <img src="images/IMG_6167.JPG" alt="微博截图8">
+                        <img src="images/IMG_6168.JPG" alt="微博截图9">
+                    </div>
+                </div>
+            </details>
+            <details class="rare-details">
+                <summary>微博来回关注吃播截图</summary>
+                <div class="rare-content">
+                    <div class="rare-photos">
+                        <img src="images/IMG_6071.JPG" alt="微博截图1">
+                        <img src="images/IMG_6072.JPG" alt="微博截图2">
+                        <img src="images/IMG_6073.JPG" alt="微博截图3">
+                    </div>
+                </div>
+            </details>
+            <details class="rare-details">
+                <summary>乘风姐姐对月月评价合集</summary>
                 <div class="rare-content">
                     <div class="video-grid">
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38244517941&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38244581450&p=2&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38007017018&p=3&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006425182&p=4&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38007277682&p=5&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006950760&p=6&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38255593201&p=7&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905500083&p=8&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905370064&p=9&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905433558&p=10&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905434290&p=11&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905435578&p=12&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006883613&p=13&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006817710&p=14&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905498388&p=15&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=37905633087&p=16&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                        <div class="video-wrapper"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116480888936263&bvid=BV1eN9rBzE2K&cid=38006558523&p=17&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116506188843852&bvid=BV12q9QB4Epo&cid=38046927240&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116862167878425&bvid=BV1nyMP6ME1g&cid=39654392627&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116691090541428&bvid=BV1u4Ew6MEWH&cid=38851904159&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116714142436616&bvid=BV1i1Eu6MEYT&cid=38958861995&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116709797138665&bvid=BV1DZE86SEtj&cid=38940643030&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116584840498072&bvid=BV1fsL56jEte&cid=38384500918&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116623226703731&bvid=BV1dAGi6FEQ1&cid=38553191841&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                        <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116618814293897&bvid=BV1SNG86eEm5&cid=38569247218&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
+                    </div>
+                </div>
+            </details>
+            <details class="rare-details">
+                <summary>小红书回复评论部分截图</summary>
+                <div class="rare-content">
+                    <div class="rare-photos">
+                        <img src="images/IMG_6170.JPG" alt="小红书截图1">
+                        <img src="images/IMG_6171.jpg" alt="小红书截图2">
+                        <img src="images/IMG_6172.jpg" alt="小红书截图3">
+                        <img src="images/IMG_6173.jpg" alt="小红书截图4">
+                        <img src="images/IMG_6174.jpg" alt="小红书截图5">
+                        <img src="images/IMG_6175.jpg" alt="小红书截图6">
+                        <img src="images/IMG_6176.jpg" alt="小红书截图7">
+                        <img src="images/IMG_6177.jpg" alt="小红书截图8">
+                        <img src="images/IMG_6178.jpg" alt="小红书截图9">
+                        <img src="images/IMG_6179.jpg" alt="小红书截图10">
+                        <img src="images/IMG_6180.jpg" alt="小红书截图11">
+                        <img src="images/IMG_6181.jpg" alt="小红书截图12">
+                        <img src="images/IMG_6182.jpg" alt="小红书截图13">
+                        <img src="images/IMG_6183.jpg" alt="小红书截图14">
+                        <img src="images/IMG_6184.jpg" alt="小红书截图15">
+                        <img src="images/IMG_6185.jpg" alt="小红书截图16">
                     </div>
                 </div>
             </details>
@@ -719,13 +896,11 @@
                 const src = iframe ? iframe.src : (video ? video.querySelector('source')?.src || video.src : null);
                 if (!src) return;
 
-                // 创建灯箱
                 const lightbox = document.createElement('div');
                 lightbox.className = 'lightbox-video active';
                 const inner = document.createElement('div');
                 inner.className = 'video-inner';
 
-                // 关闭按钮
                 const closeBtn = document.createElement('div');
                 closeBtn.className = 'close-video';
                 closeBtn.innerHTML = '✕';
@@ -734,7 +909,6 @@
                     lightbox.remove();
                 });
 
-                // 创建播放器
                 let player;
                 if (iframe) {
                     player = document.createElement('iframe');
@@ -755,7 +929,6 @@
                 lightbox.appendChild(inner);
                 document.body.appendChild(lightbox);
 
-                // 点击背景关闭
                 lightbox.addEventListener('click', function(e) {
                     if (e.target === lightbox) {
                         lightbox.remove();
@@ -774,13 +947,11 @@
                 if (cusdisLoaded) return;
                 cusdisLoaded = true;
 
-                // 动态设置 page-url 为当前完整网址
                 const thread = document.getElementById('cusdis_thread');
                 if (thread) {
                     thread.setAttribute('data-page-url', window.location.href);
                 }
 
-                // 加载 Cusdis 官方脚本
                 const script = document.createElement('script');
                 script.src = 'https://cusdis.com/js/cusdis.es.js';
                 script.async = true;
@@ -788,13 +959,11 @@
                 document.body.appendChild(script);
             }
 
-            // 监听点击事件：点击留言菜单时加载
             const label = document.querySelector('label[for="nav-comments"]');
             if (label) {
                 label.addEventListener('click', loadCusdis);
             }
 
-            // 如果页面初始就是留言面板（不会发生，但作为兜底）
             if (commentsRadio.checked) {
                 loadCusdis();
             }
