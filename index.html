@@ -5,50 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>张月 · 九年望月 十年月圆</title>
     <style>
-        /* ========== 全局蓝调 ========== */
+        /* ========== 全局 Ins 蓝调 ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: "Noto Serif SC", "PingFang SC", "微软雅黑", serif;
-            background: #eef2f6;
+            background: 
+                linear-gradient(135deg, rgba(230, 242, 255, 0.85) 0%, rgba(200, 222, 248, 0.75) 40%, rgba(170, 210, 240, 0.7) 70%, rgba(140, 195, 235, 0.65) 100%),
+                url('images/background.PNG') center/cover no-repeat fixed;
+            background-blend-mode: overlay;
             color: #2c3e50;
             display: flex;
             min-height: 100vh;
         }
+
+        /* ========== 侧边栏 ========== */
         .sidebar {
-            width: 220px;
-            background: #1e3b5c;
-            color: #d6e2f0;
-            padding: 2rem 1rem;
+            width: 240px;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.4);
+            color: #1e3b5c;
+            padding: 2.5rem 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.6rem;
             position: fixed;
             top: 0; left: 0; bottom: 0;
             z-index: 10;
             overflow-y: auto;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 15px rgba(0,0,0,0.05);
         }
         .sidebar h2 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 400;
-            letter-spacing: 2px;
-            color: white;
+            letter-spacing: 3px;
+            color: #1e3b5c;
             text-align: center;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #3b5a82;
-            padding-bottom: 0.8rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            padding-bottom: 1rem;
+            opacity: 0.8;
         }
         .sidebar input[type="radio"] { display: none; }
         .sidebar label {
             display: block;
-            padding: 0.7rem 1rem;
-            border-radius: 6px;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             font-size: 0.95rem;
-            color: #c5d5ea;
+            color: #2c5282;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+            background: rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.6);
         }
-        .sidebar label:hover { background: #2c4a6e; color: white; }
+        .sidebar label:hover {
+            background: rgba(255,255,255,0.7);
+            transform: translateX(4px);
+            border-color: rgba(44, 82, 130, 0.3);
+        }
         input#nav-home:checked ~ .sidebar label[for="nav-home"],
         input#nav-timeline:checked ~ .sidebar label[for="nav-timeline"],
         input#nav-acting:checked ~ .sidebar label[for="nav-acting"],
@@ -58,20 +76,24 @@
         input#nav-rare:checked ~ .sidebar label[for="nav-rare"],
         input#nav-about:checked ~ .sidebar label[for="nav-about"],
         input#nav-comments:checked ~ .sidebar label[for="nav-comments"] {
-            background: #2c5282;
-            color: white;
+            background: rgba(255,255,255,0.85);
+            color: #1a3a5c;
             font-weight: 600;
+            border-color: rgba(44, 82, 130, 0.4);
+            box-shadow: 0 4px 12px rgba(44, 82, 130, 0.1);
         }
+
+        /* ========== 右侧内容区 ========== */
         .content {
-            margin-left: 220px;
+            margin-left: 240px;
             flex: 1;
-            padding: 2rem 2.5rem;
-            max-width: 1200px;
+            padding: 2.5rem 3rem;
+            max-width: 1300px;
             width: 100%;
-            background: #fafcfe;
+            background: transparent;
             min-height: 100vh;
         }
-        .panel { display: none; animation: fadeIn 0.3s ease; }
+        .panel { display: none; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         #nav-home:checked ~ .content #home-panel,
         #nav-timeline:checked ~ .content #timeline-panel,
@@ -82,335 +104,258 @@
         #nav-rare:checked ~ .content #rare-panel,
         #nav-about:checked ~ .content #about-panel,
         #nav-comments:checked ~ .content #comments-panel { display: block; }
+
         .panel h2 {
-            font-size: 1.8rem;
-            color: #2c5282;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid #5b83b5;
-            padding-left: 1rem;
+            font-size: 2rem;
+            font-weight: 400;
+            color: #1a3a5c;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            border-left: 5px solid #a0c8f0;
+            padding-left: 1.2rem;
+            opacity: 0.9;
         }
+
+        /* ========== 卡片 ========== */
         .card {
-            background: #f8fafe;
-            border: 1px solid #d4dfed;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 8px rgba(40,60,90,0.04);
-            transition: all 0.2s;
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 8px 24px rgba(60, 80, 110, 0.08);
+            transition: all 0.3s ease;
         }
         .card:hover {
-            border-color: #8ba5c4;
-            box-shadow: 0 4px 12px rgba(44,82,130,0.1);
+            box-shadow: 0 12px 32px rgba(60, 80, 110, 0.12);
+            transform: translateY(-3px);
+            border-color: rgba(160, 200, 240, 0.8);
         }
         .card img, .card iframe {
             max-width: 100%;
-            border-radius: 4px;
+            border-radius: 16px;
             margin: 0.8rem 0;
-            border: 1px solid #dbe4f0;
+            border: none;
         }
-        iframe { aspect-ratio: 16/9; height: auto; width: 100%; }
+        iframe { aspect-ratio: 16/9; height: auto; width: 100%; border-radius: 16px; }
 
-        /* 视频容器加透明遮罩，防止点击直接触发原生控件 */
         .video-wrapper {
             position: relative;
             width: 100%;
             overflow: hidden;
-            border-radius: 4px;
-            margin: 0.8rem 0;
+            border-radius: 16px;
+            margin: 1rem 0;
             cursor: pointer;
         }
-        .video-wrapper::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: transparent;
-            z-index: 2;
-        }
+        .video-wrapper::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 2; }
         .video-wrapper video,
-        .video-wrapper iframe {
-            width: 100%;
-            height: auto;
-            display: block;
-            border: 1px solid #dbe4f0;
-            border-radius: 4px;
-            position: relative;
-            z-index: 1;
-        }
+        .video-wrapper iframe { width: 100%; height: auto; display: block; border-radius: 16px; position: relative; z-index: 1; }
 
-        .acting-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.8rem;
-            margin-top: 0.5rem;
-        }
+        /* ========== 影视作品网格 ========== */
+        .acting-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-top: 0.5rem; }
         .acting-item {
-            background: #f8fafe;
-            border: 1px solid #d4dfed;
-            border-radius: 6px;
-            padding: 0.4rem;
+            background: linear-gradient(180deg, rgba(210, 235, 250, 0.65) 0%, rgba(180, 220, 245, 0.6) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 0.5rem;
             text-align: center;
-            box-shadow: 0 1px 4px rgba(40,60,90,0.03);
-            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(90, 150, 180, 0.08);
+            transition: all 0.3s ease;
         }
         .acting-item:hover {
-            border-color: #8ba5c4;
-            box-shadow: 0 3px 8px rgba(44,82,130,0.08);
-            transform: translateY(-1px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(90, 150, 180, 0.15);
+            border-color: rgba(255, 255, 255, 1);
         }
-        .acting-title {
-            font-weight: 600;
-            font-size: 0.75rem;
-            color: #1e3b5c;
-            margin: 0 0 0.3rem 0;
-            text-align: center;
-        }
+        .acting-title { font-weight: 500; font-size: 0.8rem; color: #1a3a5c; margin: 0.3rem 0; }
         .acting-poster {
             position: relative;
             width: 100%;
             padding-top: 56.25%;
             overflow: hidden;
-            border-radius: 3px;
-            margin-bottom: 0.4rem;
+            border-radius: 16px;
+            margin-bottom: 0.3rem;
         }
         .acting-poster img {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             object-fit: cover;
-            display: block;
+            filter: brightness(0.95) contrast(1.05);
+            transition: filter 0.3s;
         }
-        .acting-item .acting-info {
-            margin-top: 0.4rem;
-            font-size: 0.7rem;
-            color: #5a6f8c;
-            line-height: 1.4;
-        }
-        .acting-item .acting-info .date { font-weight: 600; color: #2c5282; }
-        .acting-item .acting-info .role { color: #889bb3; }
+        .acting-poster img:hover { filter: brightness(1) contrast(1.05); }
+        .acting-info { margin-top: 0.2rem; font-size: 0.7rem; color: #5a7d9a; }
+        .acting-info .date { font-weight: 600; color: #2c5282; }
+        .acting-info .role { color: #889bb3; }
 
         .note {
-            margin-top: 0.8rem;
-            padding: 0.8rem 1rem;
-            background: #eef3fa;
-            border-left: 4px solid #5b83b5;
-            color: #2c435c;
-            font-style: italic;
-            border-radius: 0 4px 4px 0;
-        }
-        blockquote {
-            margin: 0.8rem 0;
-            padding: 0.5rem 1rem;
-            background: #e7eff9;
-            border-left: 3px solid #8aa3c4;
-            color: #3c516b;
-            font-size: 0.9rem;
+            margin-top: 0.8rem; padding: 1rem 1.2rem;
+            background: rgba(230, 242, 255, 0.5);
+            border-left: 5px solid #a0c8f0;
+            color: #2c435c; font-style: italic;
+            border-radius: 0 16px 16px 0;
         }
         footer {
-            margin-top: 2rem;
-            text-align: center;
-            color: #889bb3;
+            margin-top: 2.5rem; text-align: center;
+            color: #2c5282;
             font-size: 0.85rem;
-            border-top: 1px solid #ceddea;
+            border-top: 1px solid rgba(0,0,0,0.05);
             padding-top: 1.5rem;
         }
 
-        .profile-card-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.8rem;
-            margin-top: 0.5rem;
-        }
+        /* 主页资料卡 */
+        .profile-card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 0.5rem; }
         .profile-card {
-            background: #f8fafe;
-            border: 1px solid #d4dfed;
-            border-radius: 10px;
-            padding: 0.9rem 0.5rem;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(40,60,90,0.04);
-            transition: all 0.2s;
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 20px; padding: 1rem 0.5rem;
+            text-align: center; box-shadow: 0 4px 12px rgba(60,80,110,0.06);
+            transition: all 0.3s ease;
         }
-        .profile-card:hover {
-            border-color: #8ba5c4;
-            box-shadow: 0 4px 12px rgba(44,82,130,0.1);
-            transform: translateY(-1px);
-        }
-        .profile-card-label {
-            display: block;
-            font-size: 0.75rem;
-            color: #889bb3;
-            letter-spacing: 1px;
-            margin-bottom: 0.3rem;
-            text-transform: uppercase;
-        }
-        .profile-card-value {
-            display: block;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #2c3e50;
-        }
+        .profile-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(60,80,110,0.12); }
+        .profile-card-label { display: block; font-size: 0.75rem; color: #4da6ff; letter-spacing: 2px; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .profile-card-value { font-size: 1rem; font-weight: 600; color: #2c5282; }
 
-        /* 合集卡片（通用） */
-        .rare-details, .collection-card {
-            background: #f8fafe;
-            border: 1px solid #d4dfed;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(40,60,90,0.04);
-            transition: all 0.2s;
-        }
-        .rare-details:hover, .collection-card:hover {
-            border-color: #8ba5c4;
-            box-shadow: 0 4px 12px rgba(44,82,130,0.1);
-        }
-        .rare-details summary, .collection-card summary {
-            padding: 1rem 1.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            color: #2c5282;
-            list-style: none;
+        .social-links {
             display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 1rem;
+            padding: 0.6rem 1.4rem;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 30px;
+            color: #2c5282;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(60, 80, 110, 0.06);
         }
-        .rare-details summary::before { content: "📷"; font-size: 1rem; }
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.75);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(60, 80, 110, 0.12);
+            border-color: rgba(44, 82, 130, 0.4);
+            color: #1a3a5c;
+        }
+        .social-btn .social-icon { font-size: 1.2rem; line-height: 1; }
+
+        .rare-details, .collection-card {
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px; margin-bottom: 1.2rem;
+            box-shadow: 0 4px 12px rgba(60,80,110,0.06);
+            transition: all 0.3s ease;
+        }
+        .rare-details:hover, .collection-card:hover { border-color: #a0c8f0; box-shadow: 0 8px 24px rgba(60,80,110,0.12); }
+        .rare-details summary, .collection-card summary {
+            padding: 1.2rem 2rem; cursor: pointer; font-weight: 500; color: #2c5282;
+            list-style: none; display: flex; align-items: center; gap: 0.5rem; font-size: 1rem;
+            border-radius: 24px; letter-spacing: 1px;
+        }
+        .rare-details summary::before { content: "📷"; font-size: 1.1rem; }
         .collection-card summary::before { content: "📁"; font-size: 1.2rem; }
         .rare-details summary::-webkit-details-marker,
         .collection-card summary::-webkit-details-marker { display: none; }
+        .rare-content, .collection-content { padding: 0 1.5rem 1.5rem 1.5rem; }
+        .rare-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.8rem; }
+        .rare-photos img {
+            width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.4);
+            object-fit: cover; aspect-ratio: 1/1; transition: transform 0.2s;
+        }
+        .rare-photos img:hover { transform: scale(1.03); }
 
-        .rare-details .rare-content,
-        .collection-content {
-            padding: 0 1.5rem 1.5rem 1.5rem;
-        }
-        .rare-content .rare-photos {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 0.5rem;
-        }
-        .rare-content .rare-photos img {
-            width: 100%;
-            border-radius: 4px;
-            border: 1px solid #dbe4f0;
-            object-fit: cover;
-            aspect-ratio: 1/1;
-        }
-
-        /* 图片灯箱 */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-        }
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; justify-content: center; align-items: center; }
         .lightbox.active { display: flex; }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 6px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            cursor: pointer;
-        }
-
-        /* 视频灯箱 */
-        .lightbox-video {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.5); cursor: pointer; }
+        .lightbox-video { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
         .lightbox-video.active { display: flex; }
-        .lightbox-video .video-inner {
-            width: 85%;
-            max-width: 1000px;
-            background: #000;
-            border-radius: 8px;
-            padding: 10px;
-            position: relative;
-        }
-        .lightbox-video iframe,
-        .lightbox-video video {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16/9;
-            border: none;
-            border-radius: 4px;
-        }
-        .close-video {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 32px;
-            height: 32px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            z-index: 10;
-            line-height: 1;
-        }
+        .lightbox-video .video-inner { width: 85%; max-width: 1000px; background: #000; border-radius: 16px; padding: 10px; position: relative; }
+        .lightbox-video iframe, .lightbox-video video { width: 100%; height: auto; aspect-ratio: 16/9; border: none; border-radius: 12px; }
+        .close-video { position: absolute; top: -10px; right: -10px; width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; font-weight: bold; color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 10; }
 
-        /* 合集内容两列网格（视频卡片） */
-        .collection-content {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-        .collection-content .card {
-            margin-bottom: 0;
-        }
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
+        .collection-content { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .collection-content .card { margin-bottom: 0; }
+        .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
         .video-grid .video-wrapper { margin: 0; }
 
+        /* 响应式 */
         @media (max-width: 900px) { .acting-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 700px) {
             body { flex-direction: column; }
-            .sidebar {
-                position: static; width: 100%; flex-direction: row; flex-wrap: wrap;
-                justify-content: center; gap: 0.3rem; padding: 1rem 0.5rem;
-            }
+            .sidebar { position: static; width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.4rem; padding: 1rem 0.5rem; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); }
             .sidebar h2 { width: 100%; text-align: center; margin-bottom: 0.5rem; border-bottom: none; }
-            .sidebar label { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+            .sidebar label { padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 20px; }
             .content { margin-left: 0; padding: 1.5rem 1rem; }
         }
         @media (max-width: 600px) {
             .profile-card-grid { grid-template-columns: repeat(2, 1fr); }
             .acting-grid { grid-template-columns: repeat(2, 1fr); }
-            .collection-content,
-            .video-grid { grid-template-columns: 1fr; }
-            .lightbox-video .video-inner { width: 95%; }
+            .collection-content, .video-grid { grid-template-columns: 1fr; }
+            .social-links { gap: 0.8rem; }
+            .social-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
         }
+        #comments-panel .card { background: rgba(255, 255, 255, 0.55); }
 
-        /* Cusdis 留言板微调 */
-        #comments-panel .card {
-            padding: 0;
-            background: transparent;
-            border: none;
-            box-shadow: none;
+        /* ========== 开屏样式 ========== */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
         }
+        #intro-overlay video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .enter-btn {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            z-index: 10001;
+            text-transform: uppercase;
+        }
+        .enter-btn.show { opacity: 1; }
     </style>
 </head>
 <body>
+    <!-- 开屏视频：初始暂停，点击开始播放带声音 -->
+    <div id="intro-overlay">
+        <video id="intro-video" src="videos/shipin.mp4" playsinline disablePictureInPicture preload="auto"></video>
+        <button id="enter-btn" class="enter-btn">进入主页</button>
+    </div>
+
     <input type="radio" name="nav" id="nav-home" checked>
     <input type="radio" name="nav" id="nav-timeline">
     <input type="radio" name="nav" id="nav-acting">
@@ -438,8 +383,8 @@
         <!-- 主页 -->
         <div class="panel" id="home-panel">
             <div style="text-align:center; margin-bottom:2rem;">
-                <img src="images/IMG_6087.jpg" alt="张月头像" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid #2c5282; padding:4px; background:white; box-shadow:0 4px 12px rgba(28,52,82,0.15);">
-                <h1 style="font-size:2rem; color:#1e3b5c; margin-top:0.8rem; letter-spacing:2px; border:none; padding:0;">张 月</h1>
+                <img src="images/IMG_6087.jpg" alt="张月头像" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid rgba(44,82,130,0.3); padding:4px; background:white; box-shadow:0 4px 20px rgba(28,52,82,0.15);">
+                <h1 style="font-size:2.2rem; color:#4da6ff; margin-top:0.8rem; letter-spacing:4px; border:none; padding:0; font-weight:400; text-shadow: 0 1px 3px rgba(255,255,255,0.3);">张 月</h1>
             </div>
             <div class="profile-card-grid">
                 <div class="profile-card"><span class="profile-card-label">姓名</span><span class="profile-card-value">张月</span></div>
@@ -451,7 +396,20 @@
                 <div class="profile-card"><span class="profile-card-label">应援色</span><span class="profile-card-value">(待补充)</span></div>
                 <div class="profile-card"><span class="profile-card-label">粉丝名</span><span class="profile-card-value">肉松（曾用名：月牙儿）</span></div>
             </div>
-            <p style="margin-top:2rem; color:#5a6f8c; text-align:center;">不被世俗定义模样，每份女性力量都有独特光芒</p>
+            <p style="margin-top:2rem; color:#90c6ff; text-align:center; text-shadow:0 1px 2px rgba(255,255,255,0.4);">不被世俗定义模样，每份女性力量都有独特光芒</p>
+            
+            <div class="social-links">
+                <a href="https://weibo.com/u/2350442141" target="_blank" class="social-btn" title="张月微博">
+                    <span class="social-icon">微博@张月YueZhang</span> 
+                </a>
+                <a href="https://xhslink.com/m/1BsOREhoFUc" target="_blank" class="social-btn" title="张月小红书">
+                    <span class="social-icon">小红书@张月</span> 
+                </a>
+                <a href="https://v.douyin.com/RryW0m2tB1A/" target="_blank" class="social-btn" title="张月抖音">
+                    <span class="social-icon">抖音@张月YueZhang</span> 
+                </a>
+            </div>
+
             <footer>非官方粉丝整理站 · 图片视频版权归原作者所有</footer>
         </div>
 
@@ -463,7 +421,7 @@
             <div class="card"><h3>2009参加阅兵仪式，还想当飞行员</h3><img src="images/IMG_6059.JPG" alt=""><div class="note">从小就根正苗红</div></div>
             <div class="card"><h3>高中韧带断裂</h3><img src="images/IMG_6057.JPG" alt=""><div class="note">连心疼你都有时差</div></div>
             <div class="card"><h3>2013-2017北舞音乐剧专业，大一开始在附中教书三年</h3><img src="images/IMG_6060.jpg" alt=""><div class="note">小张老师你真的好棒</div></div>
-            <div class="card"><h3>大四下半学期实习不想循规蹈矩去银行上了两周班,偶然间看了《穿普拉达的女王》而尝试去了天生是优我选秀</h3><img src="images/IMG_6061.jpg" alt=""><div class="note">一次"叛逆"换来了我们能看到你的机会</div></div>
+            <div class="card"><h3>大四下半学期实习不想循规蹈矩按部就班，偶然间看了《穿普拉达的女王》去银行上了两周班,发现不是自己想象中的白领生活，而去尝试了天生是优我选秀</h3><img src="images/IMG_6061.jpg" alt=""><div class="note">一次"叛逆"换来了我们能看到你的机会</div></div>
             <div class="card"><h3>2017.6.24从天生是优我正式出道</h3><img src="images/IMG_6069.jpg" alt=""><div class="note">艺人张月正式起航</div></div>
         </div>
 
@@ -498,10 +456,9 @@
             </div>
         </div>
 
-        <!-- 舞台考古（全部收纳进合集） -->
+        <!-- 舞台考古 -->
         <div class="panel" id="stage-panel">
             <h2>舞台考古</h2>
-
             <details class="collection-card">
                 <summary>浪姐舞台合集</summary>
                 <div class="collection-content">
@@ -523,39 +480,22 @@
                     <div class="card"><h3>总决赛《那些花儿》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116832069490122&bvid=BV1w8KS6tEGu&cid=39500451426&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
-
             <details class="collection-card">
                 <summary>其他舞台合集</summary>
                 <div class="collection-content">
-                    <div class="card">
-                        <h3>2013级音乐剧系毕业视频《记得回家》</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116652150818679&bvid=BV1hEVH6mEcg&cid=38676792109&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>2018.2.10 《发财发福中国年》春晚</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116873777649622&bvid=BV1DQTd68Eo3&cid=39711146207&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
+                    <div class="card"><h3>2013级音乐剧系毕业视频《记得回家》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116652150818679&bvid=BV1hEVH6mEcg&cid=38676792109&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>2018.2.10 《发财发福中国年》春晚</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116873777649622&bvid=BV1DQTd68Eo3&cid=39711146207&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
         </div>
 
-        <!-- 综艺汇总（全部收纳进合集） -->
+        <!-- 综艺汇总 -->
         <div class="panel" id="variety-panel">
             <h2>综艺汇总</h2>
-
             <details class="collection-card">
                 <summary>天生是优我 · 舞台合集</summary>
                 <div class="collection-content">
-                    <div class="card">
-                        <h3>2017.3.10 · 《天生是优我》舞台合集</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116478758160220&bvid=BV1AcomB7Ekx&cid=37893899330&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
+                    <div class="card"><h3>2017.3.10 · 《天生是优我》舞台合集</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116478758160220&bvid=BV1AcomB7Ekx&cid=37893899330&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
             <details class="rare-details">
@@ -585,18 +525,8 @@
             <details class="collection-card">
                 <summary>跨界歌王第五季舞台合集</summary>
                 <div class="collection-content">
-                    <div class="card">
-                        <h3>2020.8.15 · 《ARE YOU READY》</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=371683293&bvid=BV1hZ4y1M7zE&cid=224819637&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>2020.8.30 · 《蝴蝶泉边》</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=626984425&bvid=BV1yt4y1S7B9&cid=230266762&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
+                    <div class="card"><h3>2020.8.15 · 《ARE YOU READY》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=371683293&bvid=BV1hZ4y1M7zE&cid=224819637&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>2020.8.30 · 《蝴蝶泉边》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=626984425&bvid=BV1yt4y1S7B9&cid=230266762&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
             <details class="collection-card">
@@ -626,132 +556,44 @@
             </details>
         </div>
 
-        <!-- 访谈记录（合集形式） -->
+        <!-- 访谈记录 -->
         <div class="panel" id="interview-panel">
             <h2>访谈记录</h2>
-
             <details class="collection-card">
                 <summary>好好的时光 · 庄家姐弟采访合集</summary>
                 <div class="collection-content">
-                    <div class="card">
-                        <h3>【好好的时光】庄家姐弟采访 （上）</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116265687713123&bvid=BV1GywfzVEqM&cid=36857383742&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>【好好的时光】庄家姐弟采访（中）</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116271374993486&bvid=BV1pKA3zfEwe&cid=36882615021&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>【好好的时光】庄家姐弟采访（下）</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116276861079207&bvid=BV1wvQdBtEDw&cid=36905943458&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>《好好的时光》采访</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877485414386&bvid=BV1uGMt67E4f&cid=39726485454&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
+                    <div class="card"><h3>【好好的时光】庄家姐弟采访 （上）</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116265687713123&bvid=BV1GywfzVEqM&cid=36857383742&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>【好好的时光】庄家姐弟采访（中）</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116271374993486&bvid=BV1pKA3zfEwe&cid=36882615021&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>【好好的时光】庄家姐弟采访（下）</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116276861079207&bvid=BV1wvQdBtEDw&cid=36905943458&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>《好好的时光》采访</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877485414386&bvid=BV1uGMt67E4f&cid=39726485454&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
-
             <details class="collection-card">
                 <summary>演员请就位 · 采访合集</summary>
                 <div class="collection-content">
-                    <div class="card">
-                        <h3>影视biggerone《演员请就位》</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877653187188&bvid=BV1sBM466ERB&cid=39727138820&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>《演员请就位》采访1</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877653448415&bvid=BV1NBM46zE5q&cid=39726680930&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>《演员请就位》采访2</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877502191482&bvid=BV1TjMt6yEnN&cid=39726744832&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
+                    <div class="card"><h3>影视biggerone《演员请就位》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877653187188&bvid=BV1sBM466ERB&cid=39727138820&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>《演员请就位》采访1</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877653448415&bvid=BV1NBM46zE5q&cid=39726680930&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>《演员请就位》采访2</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877502191482&bvid=BV1TjMt6yEnN&cid=39726744832&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
-
             <details class="collection-card">
                 <summary>其他访谈合集</summary>
                 <div class="collection-content">
-                    <div class="card">
-                        <h3>优我时期问答</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116551067900797&bvid=BV1Et5J6dEiS&cid=38243338532&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>请多指教罐头君：张月坦言林有有让我拥有更多机会</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=800254422&bvid=BV1gy4y1z7mf&cid=257852660&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>张月 FUN了个星专访</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=806046184&bvid=BV1L34y1S7sW&cid=424459900&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>凤凰网-《三十而已》</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877552524732&bvid=BV13KMt6HEva&cid=39726615002&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>中英商务论坛采访</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877485412619&bvid=BV1uGMt67Ezr&cid=39726548973&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>专访2023星辰大海计划</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=833785898&bvid=BV1h34y1w7QN&cid=1341779506&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>双人采访 张月×陈瑶</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116453307059081&bvid=BV174oYBAELS&cid=37749788280&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>《给我5分钟的时间》x张月</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116594252517718&bvid=BV1ZPLF6eEP8&cid=38419632070&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>《南方人物周刊》专访张月</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116845709431073&bvid=BV1uxTz65E4E&cid=39571098952&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>《TA自成风》张月✖️蓝盈莹</h3>
-                        <div class="video-wrapper">
-                            <iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116837505303586&bvid=BV19fKZ6zEai&cid=39526073486&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
+                    <div class="card"><h3>优我时期问答</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116551067900797&bvid=BV1Et5J6dEiS&cid=38243338532&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>请多指教罐头君：张月坦言林有有让我拥有更多机会</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=800254422&bvid=BV1gy4y1z7mf&cid=257852660&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>张月 FUN了个星专访</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=806046184&bvid=BV1L34y1S7sW&cid=424459900&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>凤凰网-《三十而已》</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877552524732&bvid=BV13KMt6HEva&cid=39726615002&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>中英商务论坛采访</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116877485412619&bvid=BV1uGMt67Ezr&cid=39726548973&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>专访2023星辰大海计划</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=833785898&bvid=BV1h34y1w7QN&cid=1341779506&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>双人采访 张月×陈瑶</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116453307059081&bvid=BV174oYBAELS&cid=37749788280&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>《给我5分钟的时间》x张月</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116594252517718&bvid=BV1ZPLF6eEP8&cid=38419632070&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>《南方人物周刊》专访张月</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116845709431073&bvid=BV1uxTz65E4E&cid=39571098952&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
+                    <div class="card"><h3>《TA自成风》张月✖️蓝盈莹</h3><div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116837505303586&bvid=BV19fKZ6zEai&cid=39526073486&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>
                 </div>
             </details>
         </div>
 
-        <!-- 物料碎片（已全部合集） -->
+        <!-- 物料碎片 -->
         <div class="panel" id="rare-panel">
             <h2>🧩物料碎片</h2>
             <details class="rare-details">
@@ -784,12 +626,25 @@
                 </div>
             </details>
             <details class="rare-details">
-                <summary>微博来回关注吃播截图</summary>
+                <summary>小红书回复合集</summary>
                 <div class="rare-content">
                     <div class="rare-photos">
-                        <img src="images/IMG_6071.JPG" alt="微博截图1">
-                        <img src="images/IMG_6072.JPG" alt="微博截图2">
-                        <img src="images/IMG_6073.JPG" alt="微博截图3">
+                        <img src="images/IMG_6170.JPG" alt="小红书截图1">
+                        <img src="images/IMG_6171.jpg" alt="小红书截图2">
+                        <img src="images/IMG_6172.jpg" alt="小红书截图3">
+                        <img src="images/IMG_6173.jpg" alt="小红书截图4">
+                        <img src="images/IMG_6174.jpg" alt="小红书截图5">
+                        <img src="images/IMG_6175.jpg" alt="小红书截图6">
+                        <img src="images/IMG_6176.jpg" alt="小红书截图7">
+                        <img src="images/IMG_6177.jpg" alt="小红书截图8">
+                        <img src="images/IMG_6178.jpg" alt="小红书截图9">
+                        <img src="images/IMG_6179.jpg" alt="小红书截图3">
+                        <img src="images/IMG_6180.jpg" alt="小红书截图4">
+                        <img src="images/IMG_6181.jpg" alt="小红书截图5">
+                        <img src="images/IMG_6182.jpg" alt="小红书截图6">
+                        <img src="images/IMG_6183.jpg" alt="小红书截图7">
+                        <img src="images/IMG_6184.jpg" alt="小红书截图8">
+                        <img src="images/IMG_6185.jpg" alt="小红书截图9">
                     </div>
                 </div>
             </details>
@@ -805,29 +660,6 @@
                         <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116584840498072&bvid=BV1fsL56jEte&cid=38384500918&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
                         <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116623226703731&bvid=BV1dAGi6FEQ1&cid=38553191841&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
                         <div class="video-wrapper"><iframe loading="lazy" src="//player.bilibili.com/player.html?isOutside=true&aid=116618814293897&bvid=BV1SNG86eEm5&cid=38569247218&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>
-                    </div>
-                </div>
-            </details>
-            <details class="rare-details">
-                <summary>小红书回复评论部分截图</summary>
-                <div class="rare-content">
-                    <div class="rare-photos">
-                        <img src="images/IMG_6170.JPG" alt="小红书截图1">
-                        <img src="images/IMG_6171.jpg" alt="小红书截图2">
-                        <img src="images/IMG_6172.jpg" alt="小红书截图3">
-                        <img src="images/IMG_6173.jpg" alt="小红书截图4">
-                        <img src="images/IMG_6174.jpg" alt="小红书截图5">
-                        <img src="images/IMG_6175.jpg" alt="小红书截图6">
-                        <img src="images/IMG_6176.jpg" alt="小红书截图7">
-                        <img src="images/IMG_6177.jpg" alt="小红书截图8">
-                        <img src="images/IMG_6178.jpg" alt="小红书截图9">
-                        <img src="images/IMG_6179.jpg" alt="小红书截图10">
-                        <img src="images/IMG_6180.jpg" alt="小红书截图11">
-                        <img src="images/IMG_6181.jpg" alt="小红书截图12">
-                        <img src="images/IMG_6182.jpg" alt="小红书截图13">
-                        <img src="images/IMG_6183.jpg" alt="小红书截图14">
-                        <img src="images/IMG_6184.jpg" alt="小红书截图15">
-                        <img src="images/IMG_6185.jpg" alt="小红书截图16">
                     </div>
                 </div>
             </details>
@@ -870,7 +702,7 @@
     </div>
 
     <script>
-        // 图片灯箱（保持不变）
+        // 图片灯箱
         document.querySelectorAll('img').forEach(img => {
             img.style.cursor = 'pointer';
             img.addEventListener('click', function(e) {
@@ -881,9 +713,7 @@
                 bigImg.src = this.src;
                 lightbox.appendChild(bigImg);
                 document.body.appendChild(lightbox);
-                lightbox.addEventListener('click', function() {
-                    lightbox.remove();
-                });
+                lightbox.addEventListener('click', function() { lightbox.remove(); });
             });
         });
 
@@ -895,20 +725,14 @@
                 const video = this.querySelector('video');
                 const src = iframe ? iframe.src : (video ? video.querySelector('source')?.src || video.src : null);
                 if (!src) return;
-
                 const lightbox = document.createElement('div');
                 lightbox.className = 'lightbox-video active';
                 const inner = document.createElement('div');
                 inner.className = 'video-inner';
-
                 const closeBtn = document.createElement('div');
                 closeBtn.className = 'close-video';
                 closeBtn.innerHTML = '✕';
-                closeBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    lightbox.remove();
-                });
-
+                closeBtn.addEventListener('click', (e) => { e.stopPropagation(); lightbox.remove(); });
                 let player;
                 if (iframe) {
                     player = document.createElement('iframe');
@@ -928,45 +752,73 @@
                 inner.appendChild(closeBtn);
                 lightbox.appendChild(inner);
                 document.body.appendChild(lightbox);
-
-                lightbox.addEventListener('click', function(e) {
-                    if (e.target === lightbox) {
-                        lightbox.remove();
-                    }
-                });
+                lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.remove(); });
             });
         });
 
-        // Cusdis 延迟加载：第一次切换到留言面板时再加载
+        // Cusdis 延迟加载
         (function() {
             let cusdisLoaded = false;
             const commentsRadio = document.getElementById('nav-comments');
             if (!commentsRadio) return;
-
             function loadCusdis() {
                 if (cusdisLoaded) return;
                 cusdisLoaded = true;
-
                 const thread = document.getElementById('cusdis_thread');
-                if (thread) {
-                    thread.setAttribute('data-page-url', window.location.href);
-                }
-
+                if (thread) thread.setAttribute('data-page-url', window.location.href);
                 const script = document.createElement('script');
                 script.src = 'https://cusdis.com/js/cusdis.es.js';
                 script.async = true;
                 script.defer = true;
                 document.body.appendChild(script);
             }
-
             const label = document.querySelector('label[for="nav-comments"]');
-            if (label) {
-                label.addEventListener('click', loadCusdis);
-            }
+            if (label) label.addEventListener('click', loadCusdis);
+            if (commentsRadio.checked) loadCusdis();
+        })();
 
-            if (commentsRadio.checked) {
-                loadCusdis();
-            }
+        // 开屏交互：点击任意位置开始播放视频（带声音），4秒后显示进入按钮
+        (function() {
+            const overlay = document.getElementById('intro-overlay');
+            const video = document.getElementById('intro-video');
+            const enterBtn = document.getElementById('enter-btn');
+
+            if (!overlay || !video || !enterBtn) return;
+
+            let started = false;
+
+            overlay.addEventListener('click', function() {
+                if (!started) {
+                    started = true;
+                    video.muted = false;
+                    video.play().catch(e => console.log('视频播放失败:', e));
+                }
+            });
+
+            let buttonShown = false;
+            video.addEventListener('timeupdate', function() {
+                if (!buttonShown && video.currentTime >= 4) {
+                    buttonShown = true;
+                    enterBtn.classList.add('show');
+                }
+            });
+            video.addEventListener('ended', function() {
+                if (!buttonShown) {
+                    buttonShown = true;
+                    enterBtn.classList.add('show');
+                }
+            });
+
+            // 点击进入主页时，暂停视频并重置，解决声音继续播放问题
+            enterBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                video.pause();
+                video.currentTime = 0;
+                overlay.style.opacity = '0';
+                setTimeout(function() {
+                    overlay.style.display = 'none';
+                }, 800);
+            });
         })();
     </script>
 </body>
