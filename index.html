@@ -358,6 +358,26 @@
             object-fit: cover;
             pointer-events: none;
         }
+        /* 播放按钮 */
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10002;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .play-btn svg {
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+        }
+        .play-btn:hover svg circle {
+            fill: rgba(255,255,255,0.35);
+        }
+        .play-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
         .enter-btn {
             position: absolute;
             bottom: 80px;
@@ -392,6 +412,13 @@
                x5-video-player-type="h5"
                x5-video-orientation="landscape"
                disablePictureInPicture></video>
+        <!-- 播放按钮 -->
+        <div id="play-btn" class="play-btn">
+            <svg viewBox="0 0 80 80" width="80" height="80">
+                <circle cx="40" cy="40" r="38" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                <polygon points="30,20 65,40 30,60" fill="white"/>
+            </svg>
+        </div>
         <button id="enter-btn" class="enter-btn">进入主页</button>
     </div>
 
@@ -816,10 +843,11 @@
             if (commentsRadio.checked) loadCusdis();
         })();
 
-        // 开屏交互：点击任意位置开始播放，4秒后显示进入按钮，进入主页暂停视频
+        // 开屏交互
         (function() {
             const overlay = document.getElementById('intro-overlay');
             const video = document.getElementById('intro-video');
+            const playBtn = document.getElementById('play-btn');
             const enterBtn = document.getElementById('enter-btn');
 
             if (!overlay || !video || !enterBtn) return;
@@ -831,9 +859,19 @@
                     started = true;
                     video.muted = false;
                     video.play().catch(e => console.log('视频播放失败:', e));
+                    if (playBtn) playBtn.classList.add('hidden');
                 }
             }
 
+            // 点击播放按钮
+            if (playBtn) {
+                playBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    startPlay();
+                });
+            }
+
+            // 点击 overlay 任意位置
             overlay.addEventListener('click', startPlay);
             overlay.addEventListener('touchend', function(e) {
                 e.preventDefault();
@@ -854,6 +892,7 @@
                 }
             });
 
+            // 进入主页
             enterBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 video.pause();
