@@ -579,7 +579,8 @@ if(!started){started=true;video.muted=false;video.play().catch(e=>console.log('p
 }
 if(playBtn){playBtn.addEventListener('click',function(e){e.stopPropagation();startPlay()})}
 overlay.addEventListener('click',startPlay);
-overlay.addEventListener('touchend',function(e){e.preventDefault();startPlay()});
+overlay.addEventListener('touchend',function(e){if(e.target===overlay||e.target===video)startPlay()});
+enterBtn.addEventListener('touchend',function(e){e.stopPropagation();video.pause();video.currentTime=0;overlay.style.opacity='0';setTimeout(function(){overlay.style.display='none'},800)});
 let buttonShown=false;
 video.addEventListener('timeupdate',function(){
 if(!buttonShown&&video.currentTime>=4){buttonShown=true;enterBtn.classList.add('show')}
