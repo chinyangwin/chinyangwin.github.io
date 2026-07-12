@@ -6,7 +6,7 @@
 <title>张月 · 九年望月 十年月圆</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<script>if(window.innerWidth>=768){document.write('<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">')}</script>
 <style>
 @font-face{font-family:"XiMai";src:url("fonts/ximai.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
 :root{--bg:#eaf6fc;--bg-card:rgba(255,255,255,0.78);--bg-glass:rgba(234,246,252,0.88);--text:#1a3a5c;--text-dim:#3d6e8a;--text-faint:#7aafc8;--accent:#4fb8e0;--accent-soft:#2a98c0;--accent-warm:#ffea70;--warm-light:#fffacb;--date-blue:#1878ab;--border:rgba(79,184,224,0.22);--serif:"Noto Serif SC","Songti SC",serif;--display:"Playfair Display","Noto Serif SC",serif;--handwriting:"XiMai","Ma Shan Zheng","STXingkai",cursive}
@@ -223,6 +223,19 @@ footer::before{content:'';display:block;width:6px;height:6px;border-radius:50%;b
 .coll-cards{grid-template-columns:repeat(4,1fr)}
 }
 .coll-modal-data{display:none}
+/* MOBILE PERFORMANCE */
+@media(max-width:767px){
+body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(180deg,#eaf6fc 0%,#d4eef8 100%)}
+.nav{background:rgba(234,246,252,0.95);backdrop-filter:none;-webkit-backdrop-filter:none}
+.coll-modal{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(0,0,0,0.7)}
+.coll-modal-content{background:rgba(234,246,252,0.97);backdrop-filter:none;-webkit-backdrop-filter:none}
+.coll-modal-header{background:rgba(234,246,252,0.97);backdrop-filter:none;-webkit-backdrop-filter:none}
+#back-top{background:rgba(234,246,252,0.95);backdrop-filter:none;-webkit-backdrop-filter:none}
+.bg-quotes span{display:none}
+.bg-quotes .q1,.bg-quotes .q3,.bg-quotes .q5,.bg-quotes .q6{display:block}
+.coll-card,.act-item,.card,.p-card,.social-btn{transition:none}
+}
+
 
 /* BACK TO TOP */
 #back-top{position:fixed;bottom:2rem;right:2rem;width:42px;height:42px;border-radius:50%;background:var(--bg-glass);backdrop-filter:blur(12px);border:1px solid var(--border);color:var(--accent-soft);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;transform:translateY(12px);transition:all 0.35s;pointer-events:none;box-shadow:0 4px 15px rgba(79,184,224,0.15)}#back-top.show{opacity:1;transform:translateY(0);pointer-events:auto}#back-top:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-2px)}
