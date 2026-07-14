@@ -64,16 +64,19 @@ input#nav-comments:checked~.content #comments-panel{display:block}
 
 /* CHECKIN LAYOUT */
 .checkin-wrap{position:relative}
-.checkin-right{position:absolute;top:-5%;right:0;width:45%;display:flex;flex-direction:column;align-items:flex-start;gap:0.8rem}
-.checkin-btn{padding:0.5rem 1.5rem;border:1px solid var(--border);border-radius:2rem;background:var(--bg-card);color:var(--text-dim);font-family:var(--serif);font-size:0.88rem;cursor:pointer;transition:all 0.35s;text-align:center;letter-spacing:0.15em;backdrop-filter:blur(8px);white-space:nowrap;display:block;margin:0}
+.checkin-right{position:absolute;top:-5%;right:0;width:45%;display:grid;grid-template-columns:1fr 1fr;gap:0.8rem 0.2rem;align-items:start}
+.checkin-btn{padding:0.5rem 0;border:1px solid var(--border);border-radius:2rem;background:var(--bg-card);color:var(--text-dim);font-family:var(--serif);font-size:0.88rem;cursor:pointer;transition:all 0.35s;text-align:center;letter-spacing:0.15em;backdrop-filter:blur(8px);white-space:nowrap;display:block;margin:0;width:55%}
 .checkin-btn:hover,.checkin-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 14px rgba(79,184,224,0.35)}
-.checkin-btn:nth-child(odd){margin-left:30%}
-.checkin-btn:nth-child(even){margin-left:0}
+.checkin-btn:nth-child(odd){margin-left:0}
+.checkin-btn:nth-child(even){margin-left:5%}
 .checkin-notes{margin-top:2rem}
 .checkin-note{display:none;animation:fadeIn 0.4s ease}
 .checkin-note.active{display:block}
 .checkin-note-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
 .checkin-note-photos img{width:100%;border-radius:0.8rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);aspect-ratio:1;object-fit:cover}
+.checkin-note-inline{display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:1.5rem}
+.checkin-note-inline .checkin-note-text{flex:0 0 auto;font-family:var(--serif);color:var(--text-dim);line-height:1.8;font-size:0.95rem;padding:1rem 1.2rem;background:var(--bg-card);border-radius:0.8rem;border:1px solid var(--border);white-space:nowrap}
+.checkin-note-inline .checkin-note-photos{flex:1;margin-bottom:0}
 .checkin-note-text{font-family:var(--serif);color:var(--text-dim);line-height:1.8;font-size:0.95rem;padding:1rem 1.2rem;background:var(--bg-card);border-radius:0.8rem;border:1px solid var(--border)}
 .checkin-note-placeholder{color:var(--text-faint);font-size:0.85rem;text-align:center;padding:2rem;font-weight:700}
 @media(max-width:768px){.checkin-right{position:static;width:100%;display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem}.checkin-btn{margin-left:0!important;margin-bottom:0}.checkin-note-photos{grid-template-columns:repeat(2,1fr)}}
@@ -549,7 +552,7 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 <div class="coll-card" data-modal="rare-chaohua">
 <div class="coll-card-bg" style="background-image:url('images/card_IMG_6368.JPG')"></div>
 <div class="coll-card-icon">🚀</div>
-<div class="coll-card-info"><div class="coll-card-title">22年超话空降</div><span class="coll-card-count">9张图片</span></div>
+<div class="coll-card-info"><div class="coll-card-title">微博超话空降</div><span class="coll-card-count">14张图片</span></div>
 </div>
 <div class="coll-card" data-modal="rare-xhs">
 <div class="coll-card-bg" style="background-image:url('images/card_IMG_6377.JPG')"></div>
@@ -577,7 +580,7 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 </div>
 <div class="coll-modal-data" id="rare-food"><div class="card"><h3>张月美食分享上</h3><div class="video-wrapper" data-cover="images/covers/BV1fFVg6FEN9.jpg"><img class="video-cover" src="images/covers/BV1fFVg6FEN9.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116661931741057&bvid=BV1fFVg6FEN9&cid=38715199450&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>张月美食分享下</h3><div class="video-wrapper" data-cover="images/covers/BV1kiVG6VEDa.jpg"><img class="video-cover" src="images/covers/BV1kiVG6VEDa.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116662166622126&bvid=BV1kiVG6VEDa&cid=38716115440&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div></div>
 <div class="coll-modal-data" id="rare-youme"><div class="photo-grid"><img loading="lazy" src="images/IMG_6063.png" alt=""><img loading="lazy" src="images/IMG_6064.png" alt=""><img loading="lazy" src="images/IMG_6065.png" alt=""><img loading="lazy" src="images/IMG_6066.png" alt=""><img loading="lazy" src="images/IMG_6067.png" alt=""><img loading="lazy" src="images/IMG_6068.png" alt=""></div></div>
-<div class="coll-modal-data" id="rare-chaohua"><div class="photo-grid"><img loading="lazy" src="images/IMG_6160.JPG" alt=""><img loading="lazy" src="images/IMG_6161.JPG" alt=""><img loading="lazy" src="images/IMG_6162.JPG" alt=""><img loading="lazy" src="images/IMG_6163.JPG" alt=""><img loading="lazy" src="images/IMG_6164.JPG" alt=""><img loading="lazy" src="images/IMG_6165.JPG" alt=""><img loading="lazy" src="images/IMG_6166.JPG" alt=""><img loading="lazy" src="images/IMG_6167.JPG" alt=""><img loading="lazy" src="images/IMG_6168.JPG" alt=""></div></div>
+<div class="coll-modal-data" id="rare-chaohua"><div class="photo-grid"><img loading="lazy" src="images/IMG_6160.JPG" alt=""><img loading="lazy" src="images/IMG_6161.JPG" alt=""><img loading="lazy" src="images/IMG_6162.JPG" alt=""><img loading="lazy" src="images/IMG_6163.JPG" alt=""><img loading="lazy" src="images/IMG_6164.JPG" alt=""><img loading="lazy" src="images/IMG_6165.JPG" alt=""><img loading="lazy" src="images/IMG_6166.JPG" alt=""><img loading="lazy" src="images/IMG_6167.JPG" alt=""><img loading="lazy" src="images/IMG_6168.JPG" alt=""><img loading="lazy" src="images/chaohua_IMG_6398.JPG" alt=""><img loading="lazy" src="images/chaohua_IMG_6399.JPG" alt=""><img loading="lazy" src="images/chaohua_IMG_6400.JPG" alt=""><img loading="lazy" src="images/chaohua_IMG_6401.JPG" alt=""><img loading="lazy" src="images/chaohua_IMG_6402.JPG" alt=""></div></div>
 <div class="coll-modal-data" id="rare-xhs"><div class="photo-grid"><img loading="lazy" src="images/IMG_6170.JPG" alt=""><img loading="lazy" src="images/IMG_6171.jpg" alt=""><img loading="lazy" src="images/IMG_6172.jpg" alt=""><img loading="lazy" src="images/IMG_6173.jpg" alt=""><img loading="lazy" src="images/IMG_6174.jpg" alt=""><img loading="lazy" src="images/IMG_6175.jpg" alt=""><img loading="lazy" src="images/IMG_6176.jpg" alt=""><img loading="lazy" src="images/IMG_6177.jpg" alt=""><img loading="lazy" src="images/IMG_6178.jpg" alt=""><img loading="lazy" src="images/IMG_6179.jpg" alt=""><img loading="lazy" src="images/IMG_6180.jpg" alt=""><img loading="lazy" src="images/IMG_6181.jpg" alt=""><img loading="lazy" src="images/IMG_6182.jpg" alt=""><img loading="lazy" src="images/IMG_6183.jpg" alt=""><img loading="lazy" src="images/IMG_6184.jpg" alt=""><img loading="lazy" src="images/IMG_6185.jpg" alt=""></div></div>
 <div class="coll-modal-data" id="rare-cf"><div class="video-grid"><div class="video-wrapper" data-cover="images/covers/BV12q9QB4Epo.jpg"><img class="video-cover" src="images/covers/BV12q9QB4Epo.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116506188843852&bvid=BV12q9QB4Epo&cid=38046927240&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div class="video-wrapper" data-cover="images/covers/BV1nyMP6ME1g.jpg"><img class="video-cover" src="images/covers/BV1nyMP6ME1g.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116862167878425&bvid=BV1nyMP6ME1g&cid=39654392627&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div class="video-wrapper" data-cover="images/covers/BV1u4Ew6MEWH.jpg"><img class="video-cover" src="images/covers/BV1u4Ew6MEWH.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116691090541428&bvid=BV1u4Ew6MEWH&cid=38851904159&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div class="video-wrapper" data-cover="images/covers/BV1i1Eu6MEYT.jpg"><img class="video-cover" src="images/covers/BV1i1Eu6MEYT.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116714142436616&bvid=BV1i1Eu6MEYT&cid=38958861995&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div class="video-wrapper" data-cover="images/covers/BV1DZE86SEtj.jpg"><img class="video-cover" src="images/covers/BV1DZE86SEtj.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116709797138665&bvid=BV1DZE86SEtj&cid=38940643030&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div class="video-wrapper" data-cover="images/covers/BV1fsL56jEte.jpg"><img class="video-cover" src="images/covers/BV1fsL56jEte.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116584840498072&bvid=BV1fsL56jEte&cid=38384500918&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div class="video-wrapper" data-cover="images/covers/BV1dAGi6FEQ1.jpg"><img class="video-cover" src="images/covers/BV1dAGi6FEQ1.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116623226703731&bvid=BV1dAGi6FEQ1&cid=38553191841&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div class="video-wrapper" data-cover="images/covers/BV1SNG86eEm5.jpg"><img class="video-cover" src="images/covers/BV1SNG86eEm5.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116618814293897&bvid=BV1SNG86eEm5&cid=38569247218&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div></div>
 <div class="coll-modal-data" id="rare-vlog"><div class="card"><h3>EP1</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38666764949&p=1&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP2</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38666766503&p=2&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP3</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38666767304&p=3&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP4上</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38666897213&p=4&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP4下</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38666898348&p=5&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP5上</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38666899142&p=6&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP5下</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38666961201&p=7&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP6上</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38666961561&p=8&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>假期篇</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38677514805&p=9&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP6下</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38713623552&p=10&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP7上</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=38781913780&p=11&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP7下</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=39086002099&p=12&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>假期篇 EP2</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=39085999933&p=13&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP8上</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=39111427418&p=14&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>假期篇 EP3</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=39317275337&p=15&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP8下</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=39422526346&p=16&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>EP9</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=39649021117&p=17&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div><div class="card"><h3>假期篇end</h3><div class="video-wrapper" data-cover="images/covers/BV1nQG96nELU.jpg"><img class="video-cover" src="images/covers/BV1nQG96nELU.jpg" loading="lazy"><iframe loading="lazy" data-src="//player.bilibili.com/player.html?isOutside=true&aid=116650389016958&bvid=BV1nQG96nELU&cid=39825639754&p=18&autoplay=0&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div></div>
@@ -621,23 +624,23 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 <span>我们的轨迹有了交集。</span>
 </div>
 <div class="checkin-right">
-<button class="checkin-btn" data-city="qingdao">青岛</button>
-<button class="checkin-btn" data-city="aomen">澳门</button>
+<button class="checkin-btn" data-city="henan">河南</button>
+<button class="checkin-btn" data-city="beijing">北京</button>
 <button class="checkin-btn" data-city="yunnan">云南</button>
 <button class="checkin-btn" data-city="nanjing">南京</button>
-<button class="checkin-btn" data-city="henan">河南</button>
+<button class="checkin-btn" data-city="qingdao">青岛</button>
 <button class="checkin-btn" data-city="changchun">长春</button>
-<button class="checkin-btn" data-city="beijing">北京</button>
+<button class="checkin-btn" data-city="aomen">澳门</button>
 </div>
 </div>
 <div class="checkin-notes">
-<div class="checkin-note" id="note-qingdao"><div class="checkin-note-photos"></div><div class="checkin-note-text"></div></div>
+<div class="checkin-note" id="note-qingdao"><div class="checkin-note-text">1.龙江路宫崎骏漫画街<br>2.信号山公园</div><div class="checkin-note-photos"><img src="images/qingdao_IMG_6351.jpg"><img src="images/qingdao_IMG_6352.JPG"><img src="images/qingdao_IMG_6353.JPG"><img src="images/qingdao_IMG_6354.JPG"></div></div>
 <div class="checkin-note" id="note-aomen"><div class="checkin-note-photos"></div><div class="checkin-note-text"></div></div>
 <div class="checkin-note" id="note-yunnan"><div class="checkin-note-photos"></div><div class="checkin-note-text"></div></div>
 <div class="checkin-note" id="note-nanjing"><div class="checkin-note-photos"></div><div class="checkin-note-text"></div></div>
 <div class="checkin-note" id="note-changchun"><div class="checkin-note-photos"></div><div class="checkin-note-text"></div></div>
 <div class="checkin-note" id="note-beijing"><div class="checkin-note-photos"></div><div class="checkin-note-text"></div></div>
-<div class="checkin-note" id="note-henan"><div class="checkin-note-photos"></div><div class="checkin-note-text"></div></div>
+<div class="checkin-note" id="note-henan"><div class="checkin-note-text">月月强推河南必吃榜：油馍头 油饼 胡辣汤 牛肉盒 菜角 糖糕 水煎包</div><div class="checkin-note-photos"><img src="images/henan_IMG_6384.jpg"><img src="images/henan_IMG_6385.jpg"><img src="images/henan_IMG_6386.jpg"><img src="images/henan_IMG_6387.jpg"><img src="images/henan_IMG_6388.jpg"><img src="images/henan_IMG_6390.jpg"><img src="images/henan_IMG_6392.jpg"></div></div>
 <div class="checkin-note active" id="note-empty"><div class="checkin-note-placeholder">点击城市，查看打卡笔记</div></div>
 </div>
 </div>
@@ -648,6 +651,7 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 <h2 class="section-title">关于她 · 冷知识</h2>
 <div class="card">
 <ol>
+<li>超级游戏黑洞</li>
 <li>很容易害羞泛红</li>
 <li>接受不了折耳根</li>
 <li>出门前会看幸运色</li>
@@ -661,6 +665,7 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 <li>爱看财经频道里的美食节目，还爱逛菜市场</li>
 <li>有个小10岁半的妹妹和她长得很像，也在北舞读书</li>
 <li>因为太爱吃妈妈怕长胖就把她送去学跳舞了，结果跳完舞更能吃了</li>
+<li>不仅微信头像是转运头像，25年12月的小红书直播也是用的驱霉运的柚子叶女生头像</li>
 </ol>
 </div>
 </div>
@@ -771,16 +776,15 @@ const lb=document.createElement('div');
 lb.className='lightbox-video active';
 const inner=document.createElement('div');
 inner.className='video-inner';
-const homeBtn=document.createElement('div');
-homeBtn.className='home-video';
-homeBtn.innerHTML='⌂';
-homeBtn.title='主页';
-homeBtn.addEventListener('click',function(ev){ev.stopPropagation();lb.remove();document.getElementById('nav-home').click()});
-function goHome(){lb.remove();document.getElementById('nav-home').click()}
+const closeBtn=document.createElement('div');
+closeBtn.className='home-video';
+closeBtn.innerHTML='✕';
+closeBtn.title='关闭';
+closeBtn.addEventListener('click',function(ev){ev.stopPropagation();lb.remove()});
 let player;
 if(iframe){player=document.createElement('iframe');player.src=src;player.setAttribute('scrolling','no');player.setAttribute('border','0');player.setAttribute('frameborder','no');player.setAttribute('framespacing','0');player.setAttribute('allowfullscreen','true')}
 else{player=document.createElement('video');player.src=src;player.controls=true;player.autoplay=true}
-inner.appendChild(player);inner.appendChild(homeBtn);
+inner.appendChild(player);inner.appendChild(closeBtn);
 lb.appendChild(inner);document.body.appendChild(lb);
 lb.addEventListener('click',function(ev){if(ev.target===lb)lb.remove()});
 });
@@ -856,16 +860,15 @@ const lb=document.createElement('div');
 lb.className='lightbox-video active';
 const inner=document.createElement('div');
 inner.className='video-inner';
-const homeBtn=document.createElement('div');
-homeBtn.className='home-video';
-homeBtn.innerHTML='⌂';
-homeBtn.title='主页';
-homeBtn.addEventListener('click',function(ev){ev.stopPropagation();lb.remove();closeModal();document.getElementById('nav-home').click()});
-function goHome2(){lb.remove();closeModal();document.getElementById('nav-home').click()}
+const closeBtn=document.createElement('div');
+closeBtn.className='home-video';
+closeBtn.innerHTML='✕';
+closeBtn.title='关闭';
+closeBtn.addEventListener('click',function(ev){ev.stopPropagation();lb.remove();closeModal()});
 let player;
 if(iframe){player=document.createElement('iframe');player.src=src;player.setAttribute('scrolling','no');player.setAttribute('border','0');player.setAttribute('frameborder','no');player.setAttribute('framespacing','0');player.setAttribute('allowfullscreen','true')}
 else{player=document.createElement('video');player.src=src;player.controls=true;player.autoplay=true}
-inner.appendChild(player);inner.appendChild(homeBtn);
+inner.appendChild(player);inner.appendChild(closeBtn);
 lb.appendChild(inner);document.body.appendChild(lb);
 lb.addEventListener('click',function(ev){if(ev.target===lb)lb.remove()});
 });
