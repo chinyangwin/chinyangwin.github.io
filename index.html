@@ -731,7 +731,8 @@ video.addEventListener('timeupdate',function(){
 if(!buttonShown&&video.currentTime>=4){buttonShown=true;enterBtn.classList.add('show')}
 });
 video.addEventListener('ended',function(){
-if(!buttonShown){buttonShown=true;enterBtn.classList.add('show')}
+overlay.style.opacity='0';
+setTimeout(function(){overlay.style.display='none';document.getElementById('nav-home').click()},800);
 });
 enterBtn.addEventListener('click',function(e){
 e.stopPropagation();video.pause();video.currentTime=0;
@@ -775,6 +776,7 @@ homeBtn.className='home-video';
 homeBtn.innerHTML='⌂';
 homeBtn.title='主页';
 homeBtn.addEventListener('click',function(ev){ev.stopPropagation();lb.remove();document.getElementById('nav-home').click()});
+function goHome(){lb.remove();document.getElementById('nav-home').click()}
 let player;
 if(iframe){player=document.createElement('iframe');player.src=src;player.setAttribute('scrolling','no');player.setAttribute('border','0');player.setAttribute('frameborder','no');player.setAttribute('framespacing','0');player.setAttribute('allowfullscreen','true')}
 else{player=document.createElement('video');player.src=src;player.controls=true;player.autoplay=true}
@@ -859,6 +861,7 @@ homeBtn.className='home-video';
 homeBtn.innerHTML='⌂';
 homeBtn.title='主页';
 homeBtn.addEventListener('click',function(ev){ev.stopPropagation();lb.remove();closeModal();document.getElementById('nav-home').click()});
+function goHome2(){lb.remove();closeModal();document.getElementById('nav-home').click()}
 let player;
 if(iframe){player=document.createElement('iframe');player.src=src;player.setAttribute('scrolling','no');player.setAttribute('border','0');player.setAttribute('frameborder','no');player.setAttribute('framespacing','0');player.setAttribute('allowfullscreen','true')}
 else{player=document.createElement('video');player.src=src;player.controls=true;player.autoplay=true}
