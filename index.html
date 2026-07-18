@@ -63,12 +63,23 @@ input#nav-comments:checked~.content #comments-panel{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 /* CHECKIN LAYOUT */
-.checkin-wrap{position:relative}
-.checkin-right{position:absolute;top:-5%;right:0;width:45%;display:grid;grid-template-columns:1fr 1fr;gap:0.8rem 0.2rem;align-items:start}
-.checkin-btn{padding:0.5rem 0;border:1px solid var(--border);border-radius:2rem;background:var(--bg-card);color:var(--text-dim);font-family:var(--serif);font-size:0.88rem;cursor:pointer;transition:all 0.35s;text-align:center;letter-spacing:0.15em;backdrop-filter:blur(8px);white-space:nowrap;display:block;margin:0;width:55%}
+.checkin-wrap{display:flex;flex-wrap:wrap;gap:2rem;align-items:center}
+.checkin-map{flex:1 1 55%;min-width:300px}
+.checkin-poem{flex:1 1 35%;min-width:200px}
+.checkin-network svg{width:100%;height:auto}
+.net-line{fill:none;stroke:rgba(79,184,224,0.15);stroke-width:1.5;stroke-dasharray:6 4}
+.net-line-active{fill:none;stroke:var(--accent);stroke-width:2;opacity:0;transition:opacity 0.4s}
+.net-node{cursor:pointer}
+.net-node circle{transition:all 0.3s}
+.net-node:hover circle{filter:drop-shadow(0 0 8px rgba(79,184,224,0.8))}
+.net-node.active circle{r:8;filter:drop-shadow(0 0 16px rgba(79,184,224,1))}
+.net-node.active .net-glow{r:20;stroke-width:1.5;opacity:1;animation:netPulseActive 1.2s ease-in-out infinite}
+.net-node.active text{fill:var(--accent);font-weight:700}
+.net-node text{pointer-events:none;user-select:none;transition:all 0.3s}
+@keyframes netPulse{0%,100%{opacity:0.4}50%{opacity:1}}
+@keyframes netPulseActive{0%,100%{opacity:0.6;r:18}50%{opacity:1;r:24}}
+.net-glow{animation:netPulse 3s ease-in-out infinite}
 .checkin-btn:hover,.checkin-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 14px rgba(79,184,224,0.35)}
-.checkin-btn:nth-child(odd){margin-left:0}
-.checkin-btn:nth-child(even){margin-left:5%}
 .checkin-notes{margin-top:2rem}
 .checkin-note{display:none;animation:fadeIn 0.4s ease}
 .checkin-note.active{display:block}
@@ -79,7 +90,7 @@ input#nav-comments:checked~.content #comments-panel{display:block}
 .checkin-note-inline .checkin-note-photos{flex:1;margin-bottom:0}
 .checkin-note-text{font-family:var(--serif);color:var(--text-dim);line-height:1.8;font-size:0.95rem;padding:1rem 1.2rem;background:var(--bg-card);border-radius:0.8rem;border:1px solid var(--border)}
 .checkin-note-placeholder{color:var(--text-faint);font-size:0.85rem;text-align:center;padding:2rem;font-weight:700}
-@media(max-width:768px){.checkin-right{position:static;width:100%;display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem}.checkin-btn{margin-left:0!important;margin-bottom:0}.checkin-note-photos{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.checkin-wrap{flex-direction:column}.checkin-map{min-width:100%}.checkin-poem{min-width:100%}.checkin-note-photos{grid-template-columns:repeat(2,1fr)}}
 
 /* CHECKIN POEM */
 .checkin-poem{display:flex;flex-direction:column;gap:0.6rem;margin-top:1.5rem;padding:1.5rem 0}
@@ -286,6 +297,17 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 .coll-card,.act-item,.card,.p-card,.social-btn{transition:none}
 }
 
+/* HAMBURGER MENU */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;z-index:102}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text-dim);border-radius:2px;transition:all 0.3s}
+@media(max-width:768px){
+.hamburger{display:flex}
+.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg-glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);flex-direction:column;padding:0.8rem 2rem 1.2rem;gap:0;border-bottom:1px solid var(--border);box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+.nav-links.open{display:flex}
+.nav-links label{padding:0.7rem 0;border-bottom:1px solid var(--border);font-size:0.88rem;width:100%}
+.nav-links label:last-child{border-bottom:none}
+}
+
 
 /* BACK TO TOP */
 #back-top{position:fixed;bottom:2rem;right:2rem;width:42px;height:42px;border-radius:50%;background:var(--bg-glass);backdrop-filter:blur(12px);border:1px solid var(--border);color:var(--accent-soft);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;transform:translateY(12px);transition:all 0.35s;pointer-events:none;box-shadow:0 4px 15px rgba(79,184,224,0.15)}#back-top.show{opacity:1;transform:translateY(0);pointer-events:auto}#back-top:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-2px)}
@@ -362,6 +384,7 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 <!-- NAV BAR -->
 <nav class="nav">
 <label class="nav-logo" for="nav-home">张月</label>
+<div class="hamburger"><span></span><span></span><span></span></div>
 <div class="nav-links">
 <label for="nav-home">主页</label>
 <label for="nav-timeline">时间线</label>
@@ -623,6 +646,28 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 <p class="section-tag">Check-in</p>
 <h2 class="section-title">打卡同款</h2>
 <div class="checkin-wrap">
+<div class="checkin-map"><div class="checkin-network"><svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+<line x1="0" y1="100" x2="600" y2="100" stroke="rgba(79,184,224,0.04)" stroke-width="0.5"/>
+<line x1="0" y1="200" x2="600" y2="200" stroke="rgba(79,184,224,0.04)" stroke-width="0.5"/>
+<line x1="0" y1="300" x2="600" y2="300" stroke="rgba(79,184,224,0.04)" stroke-width="0.5"/>
+<line x1="150" y1="0" x2="150" y2="400" stroke="rgba(79,184,224,0.04)" stroke-width="0.5"/>
+<line x1="300" y1="0" x2="300" y2="400" stroke="rgba(79,184,224,0.04)" stroke-width="0.5"/>
+<line x1="450" y1="0" x2="450" y2="400" stroke="rgba(79,184,224,0.04)" stroke-width="0.5"/>
+<path class="net-line" d="M490,60 C470,90 450,110 430,130"/>
+<path class="net-line" d="M430,130 C450,155 470,170 490,190"/>
+<path class="net-line" d="M490,190 C460,200 400,210 360,220"/>
+<path class="net-line" d="M360,220 C380,245 400,260 420,280"/>
+<path class="net-line" d="M420,280 C400,310 370,330 340,350"/>
+<path class="net-line" d="M340,350 C300,340 240,325 180,310"/>
+<path class="net-line" d="M180,310 C250,250 350,160 490,60" stroke-dasharray="3 5" opacity="0.5"/>
+<g class="net-node" data-city="changchun"><circle cx="490" cy="60" r="5" fill="var(--accent)" stroke="#fff" stroke-width="2"/><circle cx="490" cy="60" r="12" fill="none" stroke="var(--accent)" stroke-width="1" class="net-glow"/><text x="490" y="44" text-anchor="middle" fill="var(--text-dim)" font-size="16" font-family="var(--serif)">长春</text></g>
+<g class="net-node" data-city="beijing"><circle cx="430" cy="130" r="5" fill="var(--accent)" stroke="#fff" stroke-width="2"/><circle cx="430" cy="130" r="12" fill="none" stroke="var(--accent)" stroke-width="1" class="net-glow"/><text x="430" y="114" text-anchor="middle" fill="var(--text-dim)" font-size="16" font-family="var(--serif)">北京</text></g>
+<g class="net-node" data-city="qingdao"><circle cx="490" cy="190" r="5" fill="var(--accent)" stroke="#fff" stroke-width="2"/><circle cx="490" cy="190" r="12" fill="none" stroke="var(--accent)" stroke-width="1" class="net-glow"/><text x="506" y="186" text-anchor="start" fill="var(--text-dim)" font-size="16" font-family="var(--serif)">青岛</text></g>
+<g class="net-node" data-city="henan"><circle cx="360" cy="220" r="5" fill="var(--accent)" stroke="#fff" stroke-width="2"/><circle cx="360" cy="220" r="12" fill="none" stroke="var(--accent)" stroke-width="1" class="net-glow"/><text x="360" y="204" text-anchor="middle" fill="var(--text-dim)" font-size="16" font-family="var(--serif)">河南</text></g>
+<g class="net-node" data-city="nanjing"><circle cx="420" cy="280" r="5" fill="var(--accent)" stroke="#fff" stroke-width="2"/><circle cx="420" cy="280" r="12" fill="none" stroke="var(--accent)" stroke-width="1" class="net-glow"/><text x="420" y="264" text-anchor="middle" fill="var(--text-dim)" font-size="16" font-family="var(--serif)">南京</text></g>
+<g class="net-node" data-city="aomen"><circle cx="340" cy="350" r="5" fill="var(--accent)" stroke="#fff" stroke-width="2"/><circle cx="340" cy="350" r="12" fill="none" stroke="var(--accent)" stroke-width="1" class="net-glow"/><text x="324" y="370" text-anchor="end" fill="var(--text-dim)" font-size="16" font-family="var(--serif)">澳门</text></g>
+<g class="net-node" data-city="yunnan"><circle cx="180" cy="310" r="5" fill="var(--accent)" stroke="#fff" stroke-width="2"/><circle cx="180" cy="310" r="12" fill="none" stroke="var(--accent)" stroke-width="1" class="net-glow"/><text x="164" y="326" text-anchor="end" fill="var(--text-dim)" font-size="16" font-family="var(--serif)">云南</text></g>
+</svg></div></div>
 <div class="checkin-poem">
 <span>在错位的时空，</span>
 <span>和你看同一片风景。</span>
@@ -630,15 +675,6 @@ body{font-family:"Songti SC","STSong","SimSun",serif;background:linear-gradient(
 <span>曾是你镜头下的风景，</span>
 <span>这一刻，</span>
 <span>我们的轨迹有了交集。</span>
-</div>
-<div class="checkin-right">
-<button class="checkin-btn" data-city="henan">河南</button>
-<button class="checkin-btn" data-city="beijing">北京</button>
-<button class="checkin-btn" data-city="yunnan">云南</button>
-<button class="checkin-btn" data-city="nanjing">南京</button>
-<button class="checkin-btn" data-city="qingdao">青岛</button>
-<button class="checkin-btn" data-city="changchun">长春</button>
-<button class="checkin-btn" data-city="aomen">澳门</button>
 </div>
 </div>
 <div class="checkin-notes">
@@ -955,6 +991,33 @@ btn.addEventListener('click',function(){
 var city=btn.getAttribute('data-city');
 btns.forEach(function(b){b.classList.remove('active')});
 btn.classList.add('active');
+notes.forEach(function(n){n.classList.remove('active')});
+var target=document.getElementById('note-'+city);
+if(target){target.classList.add('active')}
+if(emptyNote)emptyNote.classList.remove('active');
+});
+});
+})();
+// Hamburger menu toggle
+(function(){
+var hamburger=document.querySelector('.hamburger');
+var navLinks=document.querySelector('.nav-links');
+if(!hamburger||!navLinks)return;
+hamburger.addEventListener('click',function(){navLinks.classList.toggle('open')});
+navLinks.querySelectorAll('label').forEach(function(label){
+label.addEventListener('click',function(){navLinks.classList.remove('open')});
+});
+})();
+// Checkin network nodes
+(function(){
+var nodes=document.querySelectorAll('.net-node[data-city]');
+var notes=document.querySelectorAll('.checkin-note');
+var emptyNote=document.getElementById('note-empty');
+nodes.forEach(function(node){
+node.addEventListener('click',function(){
+var city=node.getAttribute('data-city');
+nodes.forEach(function(n){n.classList.remove('active')});
+node.classList.add('active');
 notes.forEach(function(n){n.classList.remove('active')});
 var target=document.getElementById('note-'+city);
 if(target){target.classList.add('active')}
