@@ -181,6 +181,9 @@ details.coll summary:hover{color:var(--accent-soft)}
 .lightbox-video iframe,.lightbox-video video{position:relative;width:100%;height:auto;aspect-ratio:16/9;border:none;border-radius:10px}
 .close-video{position:absolute;top:-10px;right:-10px;width:30px;height:30px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;font-weight:bold;color:#333;box-shadow:0 2px 8px rgba(0,0,0,0.3);z-index:10}
 .home-video{position:absolute;top:-10px;right:-10px;width:30px;height:30px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;font-weight:bold;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,0.3);z-index:10;text-decoration:none;line-height:1}
+.video-fallback-bar{display:none;position:absolute;bottom:-40px;left:0;right:0;text-align:center;font-family:var(--serif);font-size:0.85rem;color:#fff;background:rgba(79,184,224,0.85);padding:8px 12px;border-radius:8px;cursor:pointer;text-decoration:none;z-index:11;animation:fadeIn 0.3s}
+.video-fallback-bar:hover{background:rgba(79,184,224,1)}
+@media(max-width:768px){.video-fallback-bar.show{display:block}}
 
 /* FOOTER */
 footer{margin-top:4rem;text-align:center;color:var(--text-faint);font-size:0.7rem;border-top:1px solid var(--border);padding-top:1.5rem;letter-spacing:0.06em;position:relative}
@@ -831,6 +834,19 @@ else{player=document.createElement('video');player.src=src;player.controls=true;
 inner.appendChild(player);inner.appendChild(closeBtn);
 lb.appendChild(inner);document.body.appendChild(lb);
 lb.addEventListener('click',function(ev){if(ev.target===lb)lb.remove()});
+// Mobile fallback: show B站 link after 5s timeout
+if(/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)||window.innerWidth<768){
+var bvid=src.match(/bvid=([^&]+)/);
+if(bvid){
+var fallback=document.createElement('a');
+fallback.className='video-fallback-bar';
+fallback.href='https://www.bilibili.com/video/'+bvid[1];
+fallback.target='_blank';
+fallback.textContent='视频加载失败？点此跳转B站观看 ↗';
+inner.appendChild(fallback);
+setTimeout(function(){if(document.body.contains(fallback))fallback.classList.add('show')},5000);
+}
+}
 });
 });
 
@@ -915,6 +931,19 @@ else{player=document.createElement('video');player.src=src;player.controls=true;
 inner.appendChild(player);inner.appendChild(closeBtn);
 lb.appendChild(inner);document.body.appendChild(lb);
 lb.addEventListener('click',function(ev){if(ev.target===lb)lb.remove()});
+// Mobile fallback: show B站 link after 5s timeout
+if(/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)||window.innerWidth<768){
+var bvid2=src.match(/bvid=([^&]+)/);
+if(bvid2){
+var fallback2=document.createElement('a');
+fallback2.className='video-fallback-bar';
+fallback2.href='https://www.bilibili.com/video/'+bvid2[1];
+fallback2.target='_blank';
+fallback2.textContent='视频加载失败？点此跳转B站观看 ↗';
+inner.appendChild(fallback2);
+setTimeout(function(){if(document.body.contains(fallback2))fallback2.classList.add('show')},5000);
+}
+}
 });
 });
 }
